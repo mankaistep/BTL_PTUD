@@ -15,5 +15,7 @@ namespace BTL_PTUD {
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
         }
+
+        // wt áđấ
     }
 }
