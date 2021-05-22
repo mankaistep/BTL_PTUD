@@ -16,6 +16,6 @@ namespace BTL_PTUD {
             Application.Run(new Form1());
         }
 
-        // wt
+        // wt áđấ
     }
 }
