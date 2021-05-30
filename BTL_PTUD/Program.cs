@@ -1,8 +1,10 @@
-﻿using System;
+﻿using BTL_PTUD.Forms;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 
 namespace BTL_PTUD {
     static class Program {
@@ -13,7 +15,7 @@ namespace BTL_PTUD {
         static void Main() {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new MainTeacherForm());
         }
 
         // wt áđấ
