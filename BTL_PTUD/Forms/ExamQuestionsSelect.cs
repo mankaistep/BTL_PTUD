@@ -9,9 +9,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BTL_PTUD.Forms {
-    public partial class ExamCreateForm : Form {
-        public ExamCreateForm() {
+    public partial class ExamQuestionsSelect : Form {
+        public ExamQuestionsSelect() {
             InitializeComponent();
+        }
+
+        private void label3_Click(object sender, EventArgs e) {
+
         }
     }
 }

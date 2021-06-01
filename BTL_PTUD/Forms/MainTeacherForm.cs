@@ -14,16 +14,16 @@ namespace BTL_PTUD.Forms {
             InitializeComponent();
         }
 
-        private void onExamButtonClick(object sender, EventArgs e) {
-            this.xmUC.BringToFront();
-        }
-
         private void onClassButtonClick(object sender, EventArgs e) {
             this.classUC.BringToFront();
         }
 
         private void onExaminationButtonClick(object sender, EventArgs e) {
             this.xmtUC.BringToFront();
+        }
+
+        private void MainTeacherForm_Load(object sender, EventArgs e) {
+
         }
     }
 }
