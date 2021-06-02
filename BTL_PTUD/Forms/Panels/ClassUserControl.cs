@@ -13,5 +13,17 @@ namespace BTL_PTUD.Forms.Panels {
         public ClassUserControl() {
             InitializeComponent();
         }
+
+        private void classButtonTemplate2_Load(object sender, EventArgs e) {
+
+        }
+
+        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e) {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e) {
+
+        }
     }
 }
