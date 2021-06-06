@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BTL_PTUD.Source.Objects {
-    class Class {
+    public class Class {
 
         public readonly string ID;
         public readonly string TeacherID;

@@ -28,7 +28,7 @@ namespace BTL_PTUD.Forms {
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.xmtUC = new BTL_PTUD.Forms.Panels.ExaminationUserControl();
+            this.examUC = new BTL_PTUD.Forms.Panels.ExaminationUserControl();
             this.classUC = new BTL_PTUD.Forms.Panels.ClassUserControl();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -45,39 +45,41 @@ namespace BTL_PTUD.Forms {
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(390, 4);
+            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button3.Location = new System.Drawing.Point(215, 4);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(161, 50);
             this.button3.TabIndex = 0;
             this.button3.Text = "Kỳ thi";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.onExaminationButtonClick);
+            this.button3.Click += new System.EventHandler(this.OnExaminationButtonClick);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(210, 4);
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Location = new System.Drawing.Point(382, 4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(161, 50);
             this.button2.TabIndex = 0;
             this.button2.Text = "Lớp học";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.onClassButtonClick);
+            this.button2.Click += new System.EventHandler(this.OnClassButtonClick);
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.xmtUC);
+            this.panel2.Controls.Add(this.examUC);
             this.panel2.Controls.Add(this.classUC);
             this.panel2.Location = new System.Drawing.Point(13, 76);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(775, 443);
             this.panel2.TabIndex = 2;
             // 
-            // xmtUC
+            // examUC
             // 
-            this.xmtUC.Location = new System.Drawing.Point(3, 3);
-            this.xmtUC.Name = "xmtUC";
-            this.xmtUC.Size = new System.Drawing.Size(769, 437);
-            this.xmtUC.TabIndex = 2;
+            this.examUC.Location = new System.Drawing.Point(3, 3);
+            this.examUC.Name = "examUC";
+            this.examUC.Size = new System.Drawing.Size(769, 437);
+            this.examUC.TabIndex = 2;
             // 
             // classUC
             // 
@@ -85,7 +87,7 @@ namespace BTL_PTUD.Forms {
             this.classUC.Name = "classUC";
             this.classUC.Size = new System.Drawing.Size(769, 437);
             this.classUC.TabIndex = 1;
-            this.classUC.Click += new System.EventHandler(this.onClassButtonClick);
+            this.classUC.Click += new System.EventHandler(this.OnClassButtonClick);
             // 
             // MainTeacherForm
             // 
@@ -95,8 +97,9 @@ namespace BTL_PTUD.Forms {
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "MainTeacherForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "11192033 - GV Trần Chí Đức";
-            this.Load += new System.EventHandler(this.MainTeacherForm_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.OnFormClose);
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -110,6 +113,6 @@ namespace BTL_PTUD.Forms {
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Panel panel2;
         private Panels.ClassUserControl classUC;
-        private Panels.ExaminationUserControl xmtUC;
+        private Panels.ExaminationUserControl examUC;
     }
 }

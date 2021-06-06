@@ -10,13 +10,13 @@ namespace BTL_PTUD.Source.Objects {
 
         public readonly string ID;
         public readonly string Name;
-        public readonly DateTime Date;
+        public readonly DateTime Birthday;
         public readonly string Department;
 
-        public Student(string id, string name, DateTime date, string department) {
+        public Student(string id, string name, DateTime birthday, string department) {
             this.ID = id;
             this.Name = name;
-            this.Date = date;
+            this.Birthday = birthday;
             this.Department = department;
         }
 

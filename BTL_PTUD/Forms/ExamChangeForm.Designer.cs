@@ -50,10 +50,15 @@ namespace BTL_PTUD.Forms {
             this.comboBox11 = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.comboBox12 = new System.Windows.Forms.ComboBox();
+            this.comboBox13 = new System.Windows.Forms.ComboBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.radioButton5 = new System.Windows.Forms.RadioButton();
             this.radioButton4 = new System.Windows.Forms.RadioButton();
@@ -67,20 +72,15 @@ namespace BTL_PTUD.Forms {
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Question = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Answers_amount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label15 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
-            this.label16 = new System.Windows.Forms.Label();
-            this.comboBox12 = new System.Windows.Forms.ComboBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.comboBox13 = new System.Windows.Forms.ComboBox();
             this.button7 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
-            this.Question = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Answers_amount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -365,6 +365,44 @@ namespace BTL_PTUD.Forms {
             this.panel1.Size = new System.Drawing.Size(773, 149);
             this.panel1.TabIndex = 4;
             // 
+            // comboBox12
+            // 
+            this.comboBox12.FormattingEnabled = true;
+            this.comboBox12.Location = new System.Drawing.Point(546, 86);
+            this.comboBox12.Name = "comboBox12";
+            this.comboBox12.Size = new System.Drawing.Size(117, 21);
+            this.comboBox12.TabIndex = 2;
+            // 
+            // comboBox13
+            // 
+            this.comboBox13.FormattingEnabled = true;
+            this.comboBox13.Location = new System.Drawing.Point(129, 119);
+            this.comboBox13.Name = "comboBox13";
+            this.comboBox13.Size = new System.Drawing.Size(75, 21);
+            this.comboBox13.TabIndex = 2;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(421, 89);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(74, 18);
+            this.label16.TabIndex = 0;
+            this.label16.Text = "Loại kỳ thi";
+            this.label16.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Location = new System.Drawing.Point(4, 122);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(119, 18);
+            this.label17.TabIndex = 0;
+            this.label17.Text = "Số lượng câu hỏi";
+            this.label17.Click += new System.EventHandler(this.label1_Click);
+            // 
             // label14
             // 
             this.label14.AutoSize = true;
@@ -419,6 +457,16 @@ namespace BTL_PTUD.Forms {
             this.button3.TabIndex = 4;
             this.button3.Text = "Xóa câu hỏi";
             this.button3.UseVisualStyleBackColor = true;
+            // 
+            // button8
+            // 
+            this.button8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button8.Location = new System.Drawing.Point(7, 386);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(334, 36);
+            this.button8.TabIndex = 4;
+            this.button8.Text = "Lấy câu hỏi từ kỳ thi khác";
+            this.button8.UseVisualStyleBackColor = true;
             // 
             // button1
             // 
@@ -550,6 +598,20 @@ namespace BTL_PTUD.Forms {
             this.dataGridView1.Size = new System.Drawing.Size(334, 325);
             this.dataGridView1.TabIndex = 0;
             // 
+            // Question
+            // 
+            this.Question.HeaderText = "Đề";
+            this.Question.Name = "Question";
+            this.Question.ReadOnly = true;
+            this.Question.Width = 200;
+            // 
+            // Answers_amount
+            // 
+            this.Answers_amount.HeaderText = "Số đáp án";
+            this.Answers_amount.Name = "Answers_amount";
+            this.Answers_amount.ReadOnly = true;
+            this.Answers_amount.Width = 90;
+            // 
             // panel3
             // 
             this.panel3.Location = new System.Drawing.Point(363, 115);
@@ -597,44 +659,6 @@ namespace BTL_PTUD.Forms {
             this.button6.Text = "Làm mới";
             this.button6.UseVisualStyleBackColor = true;
             // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(421, 89);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(74, 18);
-            this.label16.TabIndex = 0;
-            this.label16.Text = "Loại kỳ thi";
-            this.label16.Click += new System.EventHandler(this.label1_Click);
-            // 
-            // comboBox12
-            // 
-            this.comboBox12.FormattingEnabled = true;
-            this.comboBox12.Location = new System.Drawing.Point(546, 86);
-            this.comboBox12.Name = "comboBox12";
-            this.comboBox12.Size = new System.Drawing.Size(117, 21);
-            this.comboBox12.TabIndex = 2;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(4, 122);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(119, 18);
-            this.label17.TabIndex = 0;
-            this.label17.Text = "Số lượng câu hỏi";
-            this.label17.Click += new System.EventHandler(this.label1_Click);
-            // 
-            // comboBox13
-            // 
-            this.comboBox13.FormattingEnabled = true;
-            this.comboBox13.Location = new System.Drawing.Point(129, 119);
-            this.comboBox13.Name = "comboBox13";
-            this.comboBox13.Size = new System.Drawing.Size(75, 21);
-            this.comboBox13.TabIndex = 2;
-            // 
             // button7
             // 
             this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -645,16 +669,6 @@ namespace BTL_PTUD.Forms {
             this.button7.Text = "Tải đề lên";
             this.button7.UseVisualStyleBackColor = true;
             // 
-            // button8
-            // 
-            this.button8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button8.Location = new System.Drawing.Point(7, 386);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(334, 36);
-            this.button8.TabIndex = 4;
-            this.button8.Text = "Lấy câu hỏi từ kỳ thi khác";
-            this.button8.UseVisualStyleBackColor = true;
-            // 
             // button9
             // 
             this.button9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -664,20 +678,6 @@ namespace BTL_PTUD.Forms {
             this.button9.TabIndex = 7;
             this.button9.Text = "Tải đề mẫu";
             this.button9.UseVisualStyleBackColor = true;
-            // 
-            // Question
-            // 
-            this.Question.HeaderText = "Đề";
-            this.Question.Name = "Question";
-            this.Question.ReadOnly = true;
-            this.Question.Width = 200;
-            // 
-            // Answers_amount
-            // 
-            this.Answers_amount.HeaderText = "Số đáp án";
-            this.Answers_amount.Name = "Answers_amount";
-            this.Answers_amount.ReadOnly = true;
-            this.Answers_amount.Width = 90;
             // 
             // ExamChangeForm
             // 
@@ -694,6 +694,7 @@ namespace BTL_PTUD.Forms {
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
             this.Name = "ExamChangeForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Tạo mới/Chỉnh sửa kỳ thi";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

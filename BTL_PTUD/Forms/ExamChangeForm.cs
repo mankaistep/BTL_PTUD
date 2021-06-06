@@ -10,8 +10,15 @@ using System.Windows.Forms;
 
 namespace BTL_PTUD.Forms {
     public partial class ExamChangeForm : Form {
+
+        private int examID;
+
         public ExamChangeForm() {
             InitializeComponent();
+        }
+
+        public ExamChangeForm(int examID) : base() {
+            this.examID = examID;
         }
 
         private void label1_Click(object sender, EventArgs e) {

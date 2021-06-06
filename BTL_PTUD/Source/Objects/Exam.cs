@@ -16,9 +16,11 @@ namespace BTL_PTUD.Source.Objects {
         public DateTime StartDate;
         public DateTime EndDate;
         public int Limit;
-        public List<Question> Questions;
+        public int NumberQuestion;
 
-        public Exam(string id, string teacherID, string classID, DateTime creationDate, long time, string examOrder, DateTime startDate, DateTime endDate, int limit, List<Question> questions) {
+        public List<Question> Questions { get; set; }
+
+        public Exam(string id, string teacherID, string classID, DateTime creationDate, long time, string examOrder, DateTime startDate, DateTime endDate, int limit, int numberQuestion) {
             ID = id;
             TeacherID = teacherID;
             ClassID = classID;
@@ -28,7 +30,7 @@ namespace BTL_PTUD.Source.Objects {
             StartDate = startDate;
             EndDate = endDate;
             Limit = limit;
-            Questions = questions;
+            NumberQuestion = numberQuestion;
         }
     }
 }

@@ -15,7 +15,7 @@ namespace BTL_PTUD {
         static void Main() {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainTeacherForm());
+            Application.Run(new MainTeacherForm("TC1", @"Data Source=DESKTOP-S4GU3GQ\SQLEXPRESS;Initial Catalog=phanmemthi;Integrated Security=SSPI"));
         }
 
         // wt áđấ

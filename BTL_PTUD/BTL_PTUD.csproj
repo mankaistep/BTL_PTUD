@@ -94,21 +94,19 @@
     <Compile Include="Forms\Panels\ExaminationUserControl.Designer.cs">
       <DependentUpon>ExaminationUserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Panels\ExamUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Forms\Panels\ExamUserControl.Designer.cs">
-      <DependentUpon>ExamUserControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Source\Connection\SQLConnections.cs" />
     <Compile Include="Source\Objects\Answer.cs" />
     <Compile Include="Source\Objects\Class.cs" />
     <Compile Include="Source\Objects\Exam.cs" />
     <Compile Include="Source\Objects\Question.cs" />
+    <Compile Include="Source\Objects\Result.cs" />
     <Compile Include="Source\Objects\Student.cs" />
+    <Compile Include="Source\Objects\Choice.cs" />
     <Compile Include="Source\Objects\Subject.cs" />
     <Compile Include="Source\Objects\Teacher.cs" />
+    <Compile Include="Source\Utils\Utils.cs" />
     <EmbeddedResource Include="Forms\ClassForm.resx">
       <DependentUpon>ClassForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -132,9 +130,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Panels\ExaminationUserControl.resx">
       <DependentUpon>ExaminationUserControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Panels\ExamUserControl.resx">
-      <DependentUpon>ExamUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

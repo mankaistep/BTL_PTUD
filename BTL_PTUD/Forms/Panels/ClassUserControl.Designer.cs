@@ -25,12 +25,12 @@ namespace BTL_PTUD.Forms.Panels {
         /// </summary>
         private void InitializeComponent() {
             this.label1 = new System.Windows.Forms.Label();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.flpClassList = new System.Windows.Forms.FlowLayoutPanel();
             this.classButtonTemplate1 = new BTL_PTUD.Forms.Panels.ClassButtonTemplate();
             this.classButtonTemplate2 = new BTL_PTUD.Forms.Panels.ClassButtonTemplate();
             this.classButtonTemplate3 = new BTL_PTUD.Forms.Panels.ClassButtonTemplate();
             this.classButtonTemplate4 = new BTL_PTUD.Forms.Panels.ClassButtonTemplate();
-            this.flowLayoutPanel1.SuspendLayout();
+            this.flpClassList.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -44,18 +44,18 @@ namespace BTL_PTUD.Forms.Panels {
             this.label1.Text = "Danh sách lớp học";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
-            // flowLayoutPanel1
+            // flpClassList
             // 
-            this.flowLayoutPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.flowLayoutPanel1.Controls.Add(this.classButtonTemplate1);
-            this.flowLayoutPanel1.Controls.Add(this.classButtonTemplate2);
-            this.flowLayoutPanel1.Controls.Add(this.classButtonTemplate3);
-            this.flowLayoutPanel1.Controls.Add(this.classButtonTemplate4);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(20, 73);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(743, 305);
-            this.flowLayoutPanel1.TabIndex = 1;
-            this.flowLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.flowLayoutPanel1_Paint);
+            this.flpClassList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.flpClassList.Controls.Add(this.classButtonTemplate1);
+            this.flpClassList.Controls.Add(this.classButtonTemplate2);
+            this.flpClassList.Controls.Add(this.classButtonTemplate3);
+            this.flpClassList.Controls.Add(this.classButtonTemplate4);
+            this.flpClassList.Location = new System.Drawing.Point(20, 73);
+            this.flpClassList.Name = "flpClassList";
+            this.flpClassList.Size = new System.Drawing.Size(743, 305);
+            this.flpClassList.TabIndex = 1;
+            this.flpClassList.Paint += new System.Windows.Forms.PaintEventHandler(this.flowLayoutPanel1_Paint);
             // 
             // classButtonTemplate1
             // 
@@ -96,11 +96,11 @@ namespace BTL_PTUD.Forms.Panels {
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.flowLayoutPanel1);
+            this.Controls.Add(this.flpClassList);
             this.Controls.Add(this.label1);
             this.Name = "ClassUserControl";
             this.Size = new System.Drawing.Size(786, 398);
-            this.flowLayoutPanel1.ResumeLayout(false);
+            this.flpClassList.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -109,10 +109,10 @@ namespace BTL_PTUD.Forms.Panels {
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private ClassButtonTemplate classButtonTemplate1;
         private ClassButtonTemplate classButtonTemplate2;
         private ClassButtonTemplate classButtonTemplate3;
         private ClassButtonTemplate classButtonTemplate4;
+        public System.Windows.Forms.FlowLayoutPanel flpClassList;
     }
 }
