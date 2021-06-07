@@ -74,13 +74,15 @@ namespace BTL_PTUD.Forms {
             // Results
             this.dgvResults.Rows.Clear();
             foreach (var result in this.currentResults) {
-                this.dgvResults.Rows.Add(result.StudentID, result.StudentName, result.Score, result.AccessTime + " phút", result.Times);
+                string time = result.AccessTime / 60 + " p" + (result.AccessTime % 60) + " s";
+                this.dgvResults.Rows.Add(result.StudentID, result.StudentName, result.Score, time, result.Times);
             }
         }
 
         public void UpdateChoices() {
+            if (currentResults == null) return;
             int i = this.dgvResults.CurrentCell.RowIndex;
-            if (i < 0) return;
+            if (i < 0 || i >= this.currentResults.Count) return;
             var result = this.currentResults[i];
 
             List<Choice> choices = SQLConnections.QueryChoices(result.ID, true);
@@ -103,6 +105,14 @@ namespace BTL_PTUD.Forms {
 
         private void OnSelectionChanged(object sender, EventArgs e) {
             UpdateChoices();
+        }
+
+        private void OnFormClose(object sender, FormClosedEventArgs e) {
+            MainTeacherForm.MainForm.Show();
+        }
+
+        private void OnButtonBackClick(object sender, EventArgs e) {
+            this.Close();
         }
     }
 }

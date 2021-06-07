@@ -19,6 +19,7 @@ namespace BTL_PTUD.Forms.Panels {
         }
 
         private void OnClick(object sender, EventArgs e) {
+            MainTeacherForm.MainForm.Hide();
             new ClassForm(ClassObject).ShowDialog();
         }
     }

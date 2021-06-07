@@ -15,12 +15,15 @@ using System.Windows.Forms;
 namespace BTL_PTUD.Forms {
     public partial class MainTeacherForm : Form {
 
+        public static MainTeacherForm MainForm;
+
         public string TeacherID;
         public Teacher Teacher;
 
         public MainTeacherForm(string id, string sqlconnstring) {
             InitializeComponent();
             SQLConnections.Init(sqlconnstring);
+            MainForm = this;
 
             this.TeacherID = id;
             this.Teacher = SQLConnections.QueryTeacher(id);

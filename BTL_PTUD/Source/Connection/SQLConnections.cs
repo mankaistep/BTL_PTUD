@@ -332,7 +332,10 @@ namespace BTL_PTUD.Source.Connection {
             if (extra) {
                 foreach (var choice in list) {
                     choice.Question = QueryQuestion(choice.QuestionID).Content;
-                    choice.Answer = QueryAnswer(choice.AnswerID).Content;
+
+                    var answer = QueryAnswer(choice.AnswerID);
+                    choice.Answer = answer.Content;
+                    choice.IsTrue = answer.IsTrue;
                 }
             }
 

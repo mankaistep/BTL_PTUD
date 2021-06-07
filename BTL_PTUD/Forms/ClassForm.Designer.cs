@@ -42,15 +42,16 @@ namespace BTL_PTUD.Forms {
             this.labelQuestionAmount = new System.Windows.Forms.Label();
             this.dgvResults = new System.Windows.Forms.DataGridView();
             this.dgvChoices = new System.Windows.Forms.DataGridView();
-            this.Student_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Score = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Access_time = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Times = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.Question_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.is_true = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Answer = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonBack = new System.Windows.Forms.Button();
+            this.Student_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Student_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Score = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Access_time = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Times = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResults)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvChoices)).BeginInit();
             this.panel1.SuspendLayout();
@@ -219,10 +220,11 @@ namespace BTL_PTUD.Forms {
             // 
             // dgvResults
             // 
+            this.dgvResults.AllowUserToAddRows = false;
             this.dgvResults.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvResults.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Student_id,
-            this.Name,
+            this.Student_name,
             this.Score,
             this.Access_time,
             this.Times});
@@ -234,6 +236,7 @@ namespace BTL_PTUD.Forms {
             // 
             // dgvChoices
             // 
+            this.dgvChoices.AllowUserToAddRows = false;
             this.dgvChoices.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvChoices.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Question_id,
@@ -244,40 +247,26 @@ namespace BTL_PTUD.Forms {
             this.dgvChoices.Size = new System.Drawing.Size(607, 425);
             this.dgvChoices.TabIndex = 3;
             // 
-            // Student_id
+            // Question_id
             // 
-            this.Student_id.HeaderText = "Mã sinh viên";
-            this.Student_id.Name = "Student_id";
-            this.Student_id.ReadOnly = true;
-            this.Student_id.Width = 85;
+            this.Question_id.HeaderText = "Câu hỏi";
+            this.Question_id.Name = "Question_id";
+            this.Question_id.ReadOnly = true;
+            this.Question_id.Width = 300;
             // 
-            // Name
+            // is_true
             // 
-            this.Name.HeaderText = "Tên";
-            this.Name.Name = "Name";
-            this.Name.ReadOnly = true;
-            this.Name.Width = 120;
+            this.is_true.HeaderText = "Kết quả";
+            this.is_true.Name = "is_true";
+            this.is_true.ReadOnly = true;
+            this.is_true.Width = 55;
             // 
-            // Score
+            // Answer
             // 
-            this.Score.HeaderText = "Điểm";
-            this.Score.Name = "Score";
-            this.Score.ReadOnly = true;
-            this.Score.Width = 50;
-            // 
-            // Access_time
-            // 
-            this.Access_time.HeaderText = "Thời gian";
-            this.Access_time.Name = "Access_time";
-            this.Access_time.ReadOnly = true;
-            this.Access_time.Width = 70;
-            // 
-            // Times
-            // 
-            this.Times.HeaderText = "Lần làm";
-            this.Times.Name = "Times";
-            this.Times.ReadOnly = true;
-            this.Times.Width = 55;
+            this.Answer.HeaderText = "Đã chọn";
+            this.Answer.Name = "Answer";
+            this.Answer.ReadOnly = true;
+            this.Answer.Width = 208;
             // 
             // panel1
             // 
@@ -303,37 +292,64 @@ namespace BTL_PTUD.Forms {
             this.panel1.Size = new System.Drawing.Size(694, 132);
             this.panel1.TabIndex = 4;
             // 
-            // Question_id
+            // buttonBack
             // 
-            this.Question_id.HeaderText = "Câu hỏi";
-            this.Question_id.Name = "Question_id";
-            this.Question_id.ReadOnly = true;
-            this.Question_id.Width = 300;
+            this.buttonBack.Location = new System.Drawing.Point(12, 12);
+            this.buttonBack.Name = "buttonBack";
+            this.buttonBack.Size = new System.Drawing.Size(94, 36);
+            this.buttonBack.TabIndex = 5;
+            this.buttonBack.Text = "Quay lại";
+            this.buttonBack.UseVisualStyleBackColor = true;
+            this.buttonBack.Click += new System.EventHandler(this.OnButtonBackClick);
             // 
-            // is_true
+            // Student_id
             // 
-            this.is_true.HeaderText = "Kết quả";
-            this.is_true.Name = "is_true";
-            this.is_true.ReadOnly = true;
-            this.is_true.Width = 55;
+            this.Student_id.HeaderText = "Mã sinh viên";
+            this.Student_id.Name = "Student_id";
+            this.Student_id.ReadOnly = true;
+            this.Student_id.Width = 85;
             // 
-            // Answer
+            // Student_name
             // 
-            this.Answer.HeaderText = "Đã chọn";
-            this.Answer.Name = "Answer";
-            this.Answer.ReadOnly = true;
-            this.Answer.Width = 208;
+            this.Student_name.HeaderText = "Tên";
+            this.Student_name.Name = "Student_name";
+            this.Student_name.ReadOnly = true;
+            this.Student_name.Width = 120;
+            // 
+            // Score
+            // 
+            this.Score.HeaderText = "Điểm";
+            this.Score.Name = "Score";
+            this.Score.ReadOnly = true;
+            this.Score.Width = 50;
+            // 
+            // Access_time
+            // 
+            this.Access_time.HeaderText = "Thời gian";
+            this.Access_time.Name = "Access_time";
+            this.Access_time.ReadOnly = true;
+            this.Access_time.Width = 70;
+            // 
+            // Times
+            // 
+            this.Times.HeaderText = "Lần làm";
+            this.Times.Name = "Times";
+            this.Times.ReadOnly = true;
+            this.Times.Width = 55;
             // 
             // ClassForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1061, 595);
+            this.Controls.Add(this.buttonBack);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dgvChoices);
             this.Controls.Add(this.dgvResults);
+            this.Name = "ClassForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Kết quả theo lớp";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.OnFormClose);
             ((System.ComponentModel.ISupportInitialize)(this.dgvResults)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvChoices)).EndInit();
             this.panel1.ResumeLayout(false);
@@ -362,14 +378,15 @@ namespace BTL_PTUD.Forms {
         private System.Windows.Forms.Label labelQuestionAmount;
         private System.Windows.Forms.DataGridView dgvResults;
         private System.Windows.Forms.DataGridView dgvChoices;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Student_id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Score;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Access_time;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Times;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Question_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn is_true;
         private System.Windows.Forms.DataGridViewTextBoxColumn Answer;
+        private System.Windows.Forms.Button buttonBack;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Student_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Student_name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Score;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Access_time;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Times;
     }
 }

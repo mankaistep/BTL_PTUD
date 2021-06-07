@@ -18,6 +18,5 @@ namespace BTL_PTUD {
             Application.Run(new MainTeacherForm("TC1", @"Data Source=DESKTOP-S4GU3GQ\SQLEXPRESS;Initial Catalog=phanmemthi;Integrated Security=SSPI"));
         }
 
-        // wt áđấ
     }
 }
