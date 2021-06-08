@@ -32,7 +32,7 @@ namespace BTL_PTUD.Forms {
             this.Text = Teacher.ID + " - GV " + Teacher.Name;
 
             // Change ExamUserControl
-            this.examUC.labelCurrentExams.Text = SQLConnections.QueryCurrentExamAmount() + "";
+            this.examUC.labelCurrentExams.Text = SQLConnections.QueryCurrentExamAmount(id) + "";
 
             // Load Classes
             this.LoadClasses();

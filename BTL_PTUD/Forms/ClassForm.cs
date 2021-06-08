@@ -48,7 +48,7 @@ namespace BTL_PTUD.Forms {
             this.labelCreationDate.Text = dayS + "/" + monthS + "/" + cD.Year;
 
             // Time
-            this.labelTime.Text = currentExam.Time + " phút";
+            this.labelTime.Text = (currentExam.Time / 3600) + " h " + ((currentExam.Time % 3600) / 60) + " p " + (currentExam.Time % 60) + " s";
 
             // Order
             this.labelExamOrder.Text = currentExam.ExamOrder;

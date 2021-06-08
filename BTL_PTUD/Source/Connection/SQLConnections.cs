@@ -19,11 +19,18 @@ namespace BTL_PTUD.Source.Connection {
             Connection.Open();
         }
 
-        public static int QueryCurrentExamAmount() {
+        public static int QueryCurrentExamAmount(string teacherID) {
 
             var cmd = new SqlCommand();
             cmd.Connection = Connection;
-            cmd.CommandText = @"SELECT COUNT(*) FROM Exams WHERE Start_date <= GETDATE() AND End_date >= GETDATE()";
+            cmd.CommandText = @"SELECT COUNT(*) FROM Exams WHERE Start_date <= GETDATE() AND End_date >= GETDATE() AND teacher_id=@id";
+
+            var idParam = new SqlParameter("@id", System.Data.SqlDbType.VarChar, 50);
+            idParam.Value = teacherID;
+
+            cmd.Parameters.Add(idParam);
+            cmd.Prepare();
+
             var reader = cmd.ExecuteReader();
 
             int r = 0;
