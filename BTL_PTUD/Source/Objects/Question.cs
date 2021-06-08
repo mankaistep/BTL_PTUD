@@ -8,8 +8,8 @@ namespace BTL_PTUD.Source.Objects {
 
     public class Question {
 
-        public readonly string ID;
-        public readonly string ExamID;
+        public string ID;
+        public string ExamID;
         public string Content;
         public List<Answer> Answers { get; set; }
 
@@ -17,6 +17,8 @@ namespace BTL_PTUD.Source.Objects {
             this.ID = id;
             this.ExamID = examID;
             this.Content = content;
+
+            Answers = new List<Answer>();
         }
 
     }

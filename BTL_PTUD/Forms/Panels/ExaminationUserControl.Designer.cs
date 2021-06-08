@@ -28,7 +28,7 @@ namespace BTL_PTUD.Forms.Panels {
             this.labelCurrentExams = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.buttonExams = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -76,23 +76,24 @@ namespace BTL_PTUD.Forms.Panels {
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.OnNewExamButtonClick);
             // 
-            // button3
+            // buttonExams
             // 
-            this.button3.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(104, 306);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(340, 63);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "Xem hoặc sửa kỳ thi";
-            this.button3.UseVisualStyleBackColor = true;
+            this.buttonExams.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.buttonExams.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonExams.Location = new System.Drawing.Point(104, 306);
+            this.buttonExams.Name = "buttonExams";
+            this.buttonExams.Size = new System.Drawing.Size(340, 63);
+            this.buttonExams.TabIndex = 3;
+            this.buttonExams.Text = "Xem hoặc sửa kỳ thi";
+            this.buttonExams.UseVisualStyleBackColor = true;
+            this.buttonExams.Click += new System.EventHandler(this.OnButtonEditClick);
             // 
             // ExaminationUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.buttonExams);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.labelCurrentExams);
             this.Controls.Add(this.label1);
@@ -108,7 +109,7 @@ namespace BTL_PTUD.Forms.Panels {
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button buttonExams;
         public System.Windows.Forms.Label labelCurrentExams;
     }
 }

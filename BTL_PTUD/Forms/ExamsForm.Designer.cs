@@ -25,16 +25,14 @@ namespace BTL_PTUD.Forms {
         /// </summary>
         private void InitializeComponent() {
             this.label1 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.dgvExams = new System.Windows.Forms.DataGridView();
             this.Exam_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Class_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Exam_order = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.buttonEdit = new System.Windows.Forms.Button();
+            this.buttonCreate = new System.Windows.Forms.Button();
+            this.buttonBack = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvExams)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -47,65 +45,19 @@ namespace BTL_PTUD.Forms {
             this.label1.TabIndex = 0;
             this.label1.Text = "Danh sách các kỳ thi";
             // 
-            // dataGridView1
+            // dgvExams
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvExams.AllowUserToAddRows = false;
+            this.dgvExams.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvExams.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Exam_id,
             this.Class_id,
             this.Exam_order});
-            this.dataGridView1.Location = new System.Drawing.Point(17, 60);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(418, 235);
-            this.dataGridView1.TabIndex = 1;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(467, 86);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(71, 16);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Trạng thái:";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.Green;
-            this.label3.Location = new System.Drawing.Point(544, 86);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(84, 16);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Đang diễn ra";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(470, 140);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(158, 33);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Sửa kỳ thi";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(470, 179);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(158, 33);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Xóa kỳ thi";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(470, 218);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(158, 33);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "Tạo kỳ thi mới";
-            this.button3.UseVisualStyleBackColor = true;
+            this.dgvExams.Location = new System.Drawing.Point(17, 60);
+            this.dgvExams.Name = "dgvExams";
+            this.dgvExams.Size = new System.Drawing.Size(418, 235);
+            this.dgvExams.TabIndex = 1;
+            this.dgvExams.SelectionChanged += new System.EventHandler(this.OnSelectionChanged);
             // 
             // Exam_id
             // 
@@ -128,22 +80,50 @@ namespace BTL_PTUD.Forms {
             this.Exam_order.ReadOnly = true;
             this.Exam_order.Width = 125;
             // 
+            // buttonEdit
+            // 
+            this.buttonEdit.Location = new System.Drawing.Point(470, 91);
+            this.buttonEdit.Name = "buttonEdit";
+            this.buttonEdit.Size = new System.Drawing.Size(158, 33);
+            this.buttonEdit.TabIndex = 3;
+            this.buttonEdit.Text = "Sửa kỳ thi";
+            this.buttonEdit.UseVisualStyleBackColor = true;
+            this.buttonEdit.Click += new System.EventHandler(this.OnButtonEditClick);
+            // 
+            // buttonCreate
+            // 
+            this.buttonCreate.Location = new System.Drawing.Point(470, 130);
+            this.buttonCreate.Name = "buttonCreate";
+            this.buttonCreate.Size = new System.Drawing.Size(158, 33);
+            this.buttonCreate.TabIndex = 3;
+            this.buttonCreate.Text = "Tạo kỳ thi mới";
+            this.buttonCreate.UseVisualStyleBackColor = true;
+            // 
+            // buttonBack
+            // 
+            this.buttonBack.Location = new System.Drawing.Point(470, 229);
+            this.buttonBack.Name = "buttonBack";
+            this.buttonBack.Size = new System.Drawing.Size(158, 33);
+            this.buttonBack.TabIndex = 3;
+            this.buttonBack.Text = "Quay lại";
+            this.buttonBack.UseVisualStyleBackColor = true;
+            this.buttonBack.Click += new System.EventHandler(this.OnButtonBackClick);
+            // 
             // ExamsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(660, 312);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.buttonBack);
+            this.Controls.Add(this.buttonCreate);
+            this.Controls.Add(this.buttonEdit);
+            this.Controls.Add(this.dgvExams);
             this.Controls.Add(this.label1);
             this.Name = "ExamsForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Danh sách kỳ thi";
-            this.Load += new System.EventHandler(this.ExamsForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnFormClosing);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvExams)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -152,14 +132,12 @@ namespace BTL_PTUD.Forms {
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.DataGridView dgvExams;
+        private System.Windows.Forms.Button buttonEdit;
+        private System.Windows.Forms.Button buttonCreate;
         private System.Windows.Forms.DataGridViewTextBoxColumn Exam_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn Class_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn Exam_order;
+        private System.Windows.Forms.Button buttonBack;
     }
 }

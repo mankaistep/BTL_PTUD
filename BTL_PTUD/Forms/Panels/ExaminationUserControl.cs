@@ -8,7 +8,13 @@ namespace BTL_PTUD.Forms.Panels {
         }
 
         private void OnNewExamButtonClick(object sender, EventArgs e) {
-            new ExamChangeForm().ShowDialog();
+            MainTeacherForm.MainForm.Hide();
+            new ExamChangeForm(null).ShowDialog();
+        }
+
+        private void OnButtonEditClick(object sender, EventArgs e) {
+            MainTeacherForm.MainForm.Hide();
+            new ExamsForm(MainTeacherForm.MainForm.TeacherID).ShowDialog();
         }
     }
 }

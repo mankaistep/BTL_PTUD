@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace BTL_PTUD.Source.Connection {
 
@@ -19,9 +20,28 @@ namespace BTL_PTUD.Source.Connection {
         }
 
         public static int QueryCurrentExamAmount() {
+
             var cmd = new SqlCommand();
             cmd.Connection = Connection;
             cmd.CommandText = @"SELECT COUNT(*) FROM Exams WHERE Start_date <= GETDATE() AND End_date >= GETDATE()";
+            var reader = cmd.ExecuteReader();
+
+            int r = 0;
+
+            using (cmd)
+            using (reader) {
+                while (reader.Read()) {
+                    r = Convert.ToInt32(reader[0]);
+                }
+            }
+
+            return r;
+        }
+
+        public static int QueryExamAmount() {
+            var cmd = new SqlCommand();
+            cmd.Connection = Connection;
+            cmd.CommandText = @"SELECT COUNT(*) FROM Exams";
             var reader = cmd.ExecuteReader();
 
             int r = 0;
@@ -137,7 +157,7 @@ namespace BTL_PTUD.Source.Connection {
                     string teacherID = cls.TeacherID;
                     string classID = cls.ID;
                     DateTime creationDate = DateTime.Parse(reader[1].ToString());
-                    long time = Convert.ToInt64(reader[2].ToString());
+                    int time = Convert.ToInt32(reader[2].ToString());
                     string examOrder = reader[3].ToString();
                     DateTime startDate = DateTime.Parse(reader[4].ToString());
                     DateTime endDate = DateTime.Parse(reader[5].ToString());
@@ -155,6 +175,86 @@ namespace BTL_PTUD.Source.Connection {
             }
 
             return list;
+        }
+
+        public static List<Exam> QueryExams(string teacherID, bool queryQuestions, bool notYetStarted) {
+            List<Exam> list = new List<Exam>();
+
+            var cmd = new SqlCommand();
+            cmd.Connection = Connection;
+            cmd.CommandText = @"SELECT Exam_id, Class_id, Creation_date, Time, Exam_order, Start_date, End_date, limited_times, number_question from Exams where teacher_id=@id";
+            var idParam = new SqlParameter("@id", System.Data.SqlDbType.VarChar, 50);
+            idParam.Value = teacherID;
+
+            cmd.Parameters.Add(idParam);
+            cmd.Prepare();
+
+            var reader = cmd.ExecuteReader();
+
+            using (cmd)
+            using (reader) {
+                while (reader.Read()) {
+                    DateTime startDate = DateTime.Parse(reader[5].ToString());
+                    if (notYetStarted && DateTime.Compare(startDate, DateTime.Now) < 0) continue;
+
+                    string id = reader[0].ToString();
+                    string classID = reader[1].ToString();
+                    DateTime creationDate = DateTime.Parse(reader[2].ToString());
+                    int time = Convert.ToInt32(reader[3].ToString());
+                    string examOrder = reader[4].ToString();
+                    DateTime endDate = DateTime.Parse(reader[6].ToString());
+                    int limit = Convert.ToInt32(reader[7].ToString());
+                    int numberQuestion = Convert.ToInt32(reader[8].ToString());
+
+                    list.Add(new Exam(id, teacherID, classID, creationDate, time, examOrder, startDate, endDate, limit, numberQuestion));
+                }
+            }
+
+            if (queryQuestions) {
+                foreach (var exam in list) {
+                    exam.Questions = QueryQuestions(exam.ID);
+                }
+            }
+
+            return list;
+        }
+
+        public static Exam QueryExam(string id, bool queryQuestions) {
+            Exam exam = null;
+
+            var cmd = new SqlCommand();
+            cmd.Connection = Connection;
+            cmd.CommandText = @"SELECT teacher_id, Class_id, Creation_date, Time, Exam_order, Start_date, End_date, limited_times, number_question from Exams where Exam_id=@id";
+            var idParam = new SqlParameter("@id", System.Data.SqlDbType.VarChar, 50);
+            idParam.Value = id;
+
+            cmd.Parameters.Add(idParam);
+            cmd.Prepare();
+
+            var reader = cmd.ExecuteReader();
+
+            using (cmd)
+            using (reader) {
+                while (reader.Read()) {
+                    string teacherID = reader[0].ToString();
+                    string classID = reader[1].ToString();
+                    DateTime creationDate = DateTime.Parse(reader[2].ToString());
+                    int time = Convert.ToInt32(reader[3].ToString());
+                    string examOrder = reader[4].ToString();
+                    DateTime startDate = DateTime.Parse(reader[5].ToString());
+                    DateTime endDate = DateTime.Parse(reader[6].ToString());
+                    int limit = Convert.ToInt32(reader[7].ToString());
+                    int numberQuestion = Convert.ToInt32(reader[8].ToString());
+
+                    exam = new Exam(id, teacherID, classID, creationDate, time, examOrder, startDate, endDate, limit, numberQuestion);
+                }
+            }
+
+            if (queryQuestions) {
+                exam.Questions = QueryQuestions(exam.ID);
+            }
+
+            return exam;
         }
 
         public static List<Question> QueryQuestions(string examID) {
@@ -340,6 +440,203 @@ namespace BTL_PTUD.Source.Connection {
             }
 
             return list;
+        }
+
+        public static int QueryQuestionAmount() {
+            var cmd = new SqlCommand();
+            cmd.Connection = Connection;
+            cmd.CommandText = @"SELECT COUNT(*) from Question";
+
+            var reader = cmd.ExecuteReader();
+
+            using (cmd)
+            using (reader) {
+                while (reader.Read()) {
+                    return Convert.ToInt32(reader[0]);
+                }
+            }
+
+            return 0;
+        }
+
+        public static bool SaveExam(Exam exam) {
+            int qadd = 0;
+            SqlCommand cmd;
+            SqlParameter idParam;
+
+            // Check no-id exam
+            if (exam.ID == null) {
+                exam.ID = "ex" + (QueryExamAmount() + 1);
+            }
+            
+            // Check no-id questions
+            foreach (var q in exam.Questions) {
+                if (q.ID == null) {
+                    q.ExamID = exam.ID;
+                    q.ID = "q" + (QueryQuestionAmount() + qadd + 1);
+                    qadd++;
+                }
+
+                // Check no-id answers
+                for (int i = 0; i < q.Answers.Count; i++) {
+                    var a = q.Answers[i];
+                    a.QuestionID = q.ID;
+                    a.ID = q.ID + "ans" + (i + 1);
+                }
+            }
+
+            // Start transaction
+            var transaction = Connection.BeginTransaction("SaveExam");
+
+            try {
+                // Clear answers
+                foreach (var q in exam.Questions) {
+                    cmd = new SqlCommand();
+                    cmd.Connection = Connection;
+                    cmd.Transaction = transaction;
+                    cmd.CommandText = @"DELETE FROM Answer where Question_id=@id";
+                    idParam = new SqlParameter("@id", System.Data.SqlDbType.VarChar, 50);
+
+                    idParam.Value = q.ID;
+                    cmd.Parameters.Add(idParam);
+
+                    cmd.Prepare();
+                    cmd.ExecuteNonQuery();
+                }
+
+                // Clear questions
+                cmd = new SqlCommand();
+                cmd.Connection = Connection;
+                cmd.Transaction = transaction;
+                cmd.CommandText = @"DELETE FROM Question where Exam_id=@id";
+                idParam = new SqlParameter("@id", System.Data.SqlDbType.VarChar, 50);
+
+                idParam.Value = exam.ID;
+                cmd.Parameters.Add(idParam);
+
+                cmd.Prepare();
+                cmd.ExecuteNonQuery();
+
+                // Clear exam
+                cmd = new SqlCommand();
+                cmd.Connection = Connection;
+                cmd.Transaction = transaction;
+                cmd.CommandText = @"DELETE FROM Exams where Exam_id=@id";
+                idParam = new SqlParameter("@id", System.Data.SqlDbType.VarChar, 50);
+
+                idParam.Value = exam.ID;
+                cmd.Parameters.Add(idParam);
+
+                cmd.Prepare();
+                cmd.ExecuteNonQuery();
+
+
+                // Insert exam
+                cmd = new SqlCommand();
+                cmd.Connection = Connection;
+                cmd.Transaction = transaction;
+                cmd.CommandText = @"INSERT INTO Exams VALUES (@Exam_id, @teacher_id, @Class_id, @Creation_Date, @Time, @Exam_order, @Start_date, @End_date, @limited_times, @number_question)";
+
+                var examIDParam = new SqlParameter("@Exam_id", System.Data.SqlDbType.VarChar, 50);
+                var teacherIDParam = new SqlParameter("@teacher_id", System.Data.SqlDbType.VarChar, 50);
+                var classIDParam = new SqlParameter("@Class_id", System.Data.SqlDbType.VarChar, 50);
+                var creationDateParam = new SqlParameter("@Creation_Date", System.Data.SqlDbType.DateTime);
+                var timeParam = new SqlParameter("@Time", System.Data.SqlDbType.Int);
+                var examOrderParam = new SqlParameter("@Exam_order", System.Data.SqlDbType.NVarChar, 50);
+                var startDateParam = new SqlParameter("@Start_date", System.Data.SqlDbType.DateTime);
+                var endDateParam = new SqlParameter("@End_date", System.Data.SqlDbType.DateTime);
+                var limitedTimesParam = new SqlParameter("@limited_times", System.Data.SqlDbType.Int);
+                var numberQuestionParam = new SqlParameter("@number_question", System.Data.SqlDbType.Int);
+
+                examIDParam.Value = exam.ID;
+                teacherIDParam.Value = exam.TeacherID;
+                classIDParam.Value = exam.ClassID;
+                creationDateParam.Value = exam.CreationDate;
+                timeParam.Value = exam.Time;
+                examOrderParam.Value = exam.ExamOrder;
+                startDateParam.Value = exam.StartDate;
+                endDateParam.Value = exam.EndDate;
+                limitedTimesParam.Value = exam.Limit;
+                numberQuestionParam.Value = exam.NumberQuestion;
+
+                cmd.Parameters.Add(examIDParam);
+                cmd.Parameters.Add(teacherIDParam);
+                cmd.Parameters.Add(classIDParam);
+                cmd.Parameters.Add(creationDateParam);
+                cmd.Parameters.Add(timeParam);
+                cmd.Parameters.Add(examOrderParam);
+                cmd.Parameters.Add(startDateParam);
+                cmd.Parameters.Add(endDateParam);
+                cmd.Parameters.Add(limitedTimesParam);
+                cmd.Parameters.Add(numberQuestionParam);
+
+                cmd.Prepare();
+                cmd.ExecuteNonQuery();
+
+
+                // Insert questions
+                foreach (var q in exam.Questions) {
+                    cmd = new SqlCommand();
+                    cmd.Connection = Connection;
+                    cmd.Transaction = transaction;
+                    cmd.CommandText = @"INSERT INTO Question VALUES (@Question_id, @Exam_id, @Question)";
+
+                    var qIDParam = new SqlParameter("@Question_id", System.Data.SqlDbType.VarChar, 50);
+                    examIDParam = new SqlParameter("@Exam_id", System.Data.SqlDbType.VarChar, 50);
+                    var qQParam = new SqlParameter("@Question", System.Data.SqlDbType.NVarChar, 500);
+
+                    qIDParam.Value = q.ID;
+                    examIDParam.Value = q.ExamID;
+                    qQParam.Value = q.Content;
+
+                    cmd.Parameters.Add(qIDParam);
+                    cmd.Parameters.Add(examIDParam);
+                    cmd.Parameters.Add(qQParam);
+
+                    cmd.Prepare();
+                    cmd.ExecuteNonQuery();
+
+
+                    // Insert answers
+                    foreach (var a in q.Answers) {
+                        cmd = new SqlCommand();
+                        cmd.Connection = Connection;
+                        cmd.Transaction = transaction;
+                        cmd.CommandText = @"INSERT INTO Answer VALUES (@Anwer_id, @Question_id, @Anwer, @is_true)";
+
+                        var aIDParam = new SqlParameter("@Anwer_id", System.Data.SqlDbType.VarChar, 50);
+                        qIDParam = new SqlParameter("@Question_id", System.Data.SqlDbType.VarChar, 50);
+                        var aAParam = new SqlParameter("@Anwer", System.Data.SqlDbType.NVarChar, 500);
+                        var isTrueParam = new SqlParameter("@is_true", System.Data.SqlDbType.Bit);
+
+                        aIDParam.Value = a.ID;
+                        qIDParam.Value = a.QuestionID;
+                        aAParam.Value = a.Content;
+                        isTrueParam.Value = a.IsTrue;
+
+                        cmd.Parameters.Add(aIDParam);
+                        cmd.Parameters.Add(qIDParam);
+                        cmd.Parameters.Add(aAParam);
+                        cmd.Parameters.Add(isTrueParam);
+
+                        cmd.Prepare();
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                transaction.Commit();
+                return true;
+            }
+            catch (Exception e) {
+                Console.WriteLine("Commit Exception Type: {0}", e.GetType());
+                Console.WriteLine("  Message: {0}", e.Message);
+                Console.WriteLine(e.StackTrace);
+                MessageBox.Show("Xảy ra lỗi!");
+                transaction.Rollback();
+
+                return false;
+            }
+
         }
 
     }

@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 namespace BTL_PTUD.Source.Objects {
     class Exam {
 
-        public readonly string ID;
+        public string ID;
         public string TeacherID;
         public string ClassID;
         public DateTime CreationDate;
-        public long Time;
+        public int Time;
         public string ExamOrder;
         public DateTime StartDate;
         public DateTime EndDate;
@@ -20,7 +20,18 @@ namespace BTL_PTUD.Source.Objects {
 
         public List<Question> Questions { get; set; }
 
-        public Exam(string id, string teacherID, string classID, DateTime creationDate, long time, string examOrder, DateTime startDate, DateTime endDate, int limit, int numberQuestion) {
+        public Exam(string teacherID) {
+            TeacherID = teacherID;
+            CreationDate = DateTime.Now;
+            StartDate = DateTime.Now;
+            EndDate = DateTime.Now.AddDays(365);
+            Time = 0;
+            Limit = 0;
+            NumberQuestion = 0;
+            Questions = new List<Question>();
+        }
+
+        public Exam(string id, string teacherID, string classID, DateTime creationDate, int time, string examOrder, DateTime startDate, DateTime endDate, int limit, int numberQuestion) {
             ID = id;
             TeacherID = teacherID;
             ClassID = classID;
@@ -31,6 +42,7 @@ namespace BTL_PTUD.Source.Objects {
             EndDate = endDate;
             Limit = limit;
             NumberQuestion = numberQuestion;
+            Questions = new List<Question>();
         }
     }
 }
