@@ -58,6 +58,7 @@ namespace BTL_PTUD.Forms {
             this.dgvExams.Size = new System.Drawing.Size(418, 235);
             this.dgvExams.TabIndex = 1;
             this.dgvExams.SelectionChanged += new System.EventHandler(this.OnSelectionChanged);
+            this.dgvExams.DoubleClick += new System.EventHandler(this.OnDoubleClick);
             // 
             // Exam_id
             // 

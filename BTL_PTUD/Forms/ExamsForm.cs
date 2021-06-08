@@ -63,5 +63,12 @@ namespace BTL_PTUD.Forms {
         private void OnFormClosing(object sender, FormClosingEventArgs e) {
             MainTeacherForm.MainForm.Show();
         }
+
+        private void OnDoubleClick(object sender, EventArgs e) {
+            if (this.currentExam == null) return;
+            this.Close();
+            MainTeacherForm.MainForm.Hide();
+            new ExamChangeForm(this.currentExam.ID).Show();
+        }
     }
 }
