@@ -99,6 +99,7 @@ namespace BTL_PTUD.Forms {
             this.buttonCreate.TabIndex = 3;
             this.buttonCreate.Text = "Tạo kỳ thi mới";
             this.buttonCreate.UseVisualStyleBackColor = true;
+            this.buttonCreate.Click += new System.EventHandler(this.OnCreateButtonClick);
             // 
             // buttonBack
             // 
