@@ -9,6 +9,8 @@ using System.Windows.Forms;
 namespace BTL_PTUD.Source.Utils {
     public static class Utils {
 
+        private static readonly DateTime UnixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+
         public static IList<T> Clone<T>(this IList<T> listToClone) where T : ICloneable {
             return listToClone.Select(item => (T)item.Clone()).ToList();
         }
@@ -27,6 +29,13 @@ namespace BTL_PTUD.Source.Utils {
             }
 
             return instance;
+        }
+
+        public static long GetCurrentUnixTimestampMillis() {
+            DateTime localDateTime, univDateTime;
+            localDateTime = DateTime.Now;
+            univDateTime = localDateTime.ToUniversalTime();
+            return (long)(univDateTime - UnixEpoch).TotalMilliseconds;
         }
 
     }

@@ -749,7 +749,7 @@ namespace BTL_PTUD.Forms {
             this.button9.TabStop = false;
             this.button9.Text = "Tải đề mẫu";
             this.button9.UseVisualStyleBackColor = true;
-            this.button9.Click += new System.EventHandler(this.button9_Click);
+            this.button9.Click += new System.EventHandler(this.OnButtonTemplateDownloadClick);
             // 
             // button1
             // 
@@ -761,7 +761,7 @@ namespace BTL_PTUD.Forms {
             this.button1.TabStop = false;
             this.button1.Text = "Tải đề về";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.OnButtonDownloadClick);
             // 
             // ExamChangeForm
             // 

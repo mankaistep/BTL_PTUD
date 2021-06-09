@@ -1,12 +1,16 @@
 ﻿using BTL_PTUD.Source.Connection;
 using BTL_PTUD.Source.Objects;
+using BTL_PTUD.Source.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.OleDb;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -409,6 +413,18 @@ namespace BTL_PTUD.Forms {
             this.CurrentExam.EndDate = new DateTime((int)cbEDYear.SelectedItem, (int)cbEDMonth.SelectedItem, (int)cbEDDay.SelectedItem); 
         }
 
+        private void loadTemplateExcel() {
+            using (FolderBrowserDialog ofd = new FolderBrowserDialog()) {
+                if (ofd.ShowDialog() == DialogResult.OK) {
+                    string sourcepath = Application.StartupPath + "\\Extends\\Mau-cau-hoi.xlsx";
+
+                    File.Copy(sourcepath, Path.Combine(ofd.SelectedPath, "Mau-cau-hoi.xlsx"), true);
+
+                    MessageBox.Show("Tải thành công! Hãy kiểm tra", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
         private void readExcel(string fileSource) {
             try {
                 string con = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + fileSource + ";Extended Properties='Excel 8.0;HDR=Yes;ImportMixedTypes=Text'";
@@ -456,6 +472,60 @@ namespace BTL_PTUD.Forms {
             catch (Exception e) {
                 Console.WriteLine(e.StackTrace);
                 MessageBox.Show("Xảy ra lỗi trong quá trình thêm. Có vẻ như file excel của bạn không đúng. Hãy sửa lại file theo mẫu (Tải đề mẫu)", "Xảy ra lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+        }
+
+        private void generateQuestionExcel() {
+            Microsoft.Office.Interop.Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
+
+            if (xlApp == null) {
+                MessageBox.Show("Phần mềm Excel của bạn cài đặt không đúng cách!");
+                return;
+            }
+
+            using (FolderBrowserDialog ofd = new FolderBrowserDialog()) {
+                if (ofd.ShowDialog() != DialogResult.OK) return;
+
+                Microsoft.Office.Interop.Excel.Workbook xlWorkBook;
+                Microsoft.Office.Interop.Excel.Worksheet xlWorkSheet;
+                object misValue = System.Reflection.Missing.Value;
+
+                xlWorkBook = xlApp.Workbooks.Add(misValue);
+                xlWorkSheet = (Microsoft.Office.Interop.Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+
+                xlWorkSheet.Cells[1, 1] = "Câu hỏi";
+                xlWorkSheet.Cells[1, 2] = "Đáp án 1";
+                xlWorkSheet.Cells[1, 3] = "Đáp án 2";
+                xlWorkSheet.Cells[1, 4] = "Đáp án 3";
+                xlWorkSheet.Cells[1, 5] = "Đáp án 4";
+                xlWorkSheet.Cells[1, 6] = "Đáp án 5";
+                xlWorkSheet.Cells[1, 7] = "Đáp án đúng";
+
+                int index = 2;
+                foreach (var q in this.CurrentExam.Questions) {
+                    xlWorkSheet.Cells[index, 1] = q.Content.ToString();
+                    for (int i = 0; i < q.Answers.Count; i++) {
+                        var a = q.Answers[i];
+                        xlWorkSheet.Cells[index, 2 + i].NumberFormat = "@";
+                        xlWorkSheet.Cells[index, 2 + i] = a.Content.ToString();
+                        if (a.IsTrue) {
+                            xlWorkSheet.Cells[index, 7] = i + 1 + "";
+                        }
+                    }
+                    index++;
+                }
+
+                var fileName = this.CurrentExam.ID + "-" + Utils.GetCurrentUnixTimestampMillis() + ".xls";
+                xlWorkBook.SaveAs(Path.Combine(ofd.SelectedPath, fileName), Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
+                xlWorkBook.Close(true, misValue, misValue);
+                xlApp.Quit();
+
+                Marshal.ReleaseComObject(xlWorkSheet);
+                Marshal.ReleaseComObject(xlWorkBook);
+                Marshal.ReleaseComObject(xlApp);
+
+                MessageBox.Show("Lưu thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
         }
@@ -590,8 +660,8 @@ namespace BTL_PTUD.Forms {
             new ExamQuestionsSelect(MainTeacherForm.MainForm.TeacherID, this).Show();
         }
 
-        private void button9_Click(object sender, EventArgs e) {
-
+        private void OnButtonTemplateDownloadClick(object sender, EventArgs e) {
+            loadTemplateExcel();
         }
 
         private void OnButtonUploadClick(object sender, EventArgs e) {
@@ -609,8 +679,8 @@ namespace BTL_PTUD.Forms {
             }
         }
 
-        private void button1_Click(object sender, EventArgs e) {
-
+        private void OnButtonDownloadClick(object sender, EventArgs e) {
+            generateQuestionExcel();
         }
     }
 }
