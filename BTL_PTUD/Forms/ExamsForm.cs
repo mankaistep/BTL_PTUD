@@ -64,17 +64,17 @@ namespace BTL_PTUD.Forms {
             MainTeacherForm.MainForm.Show();
         }
 
-        private void OnDoubleClick(object sender, EventArgs e) {
-            if (this.currentExam == null) return;
-            this.Close();
-            MainTeacherForm.MainForm.Hide();
-            new ExamChangeForm(this.currentExam.ID).Show();
-        }
-
         private void OnCreateButtonClick(object sender, EventArgs e) {
             this.Close();
             MainTeacherForm.MainForm.Hide();
             new ExamChangeForm(null).ShowDialog();
+        }
+
+        private void OnCellDoubleClick(object sender, DataGridViewCellEventArgs e) {
+            if (this.currentExam == null) return;
+            this.Close();
+            MainTeacherForm.MainForm.Hide();
+            new ExamChangeForm(this.currentExam.ID).Show();
         }
     }
 }

@@ -19,5 +19,11 @@ namespace BTL_PTUD.Source.Objects {
             this.IsTrue = isTrue;
         }
 
+        public object Clone() {
+            var a = new Answer(ID, QuestionID, Content, IsTrue);
+            a.ID = null;
+            a.QuestionID = null;
+            return a;
+        }
     }
 }

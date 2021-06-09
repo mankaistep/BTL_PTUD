@@ -13,12 +13,13 @@ using System.Windows.Forms;
 namespace BTL_PTUD.Forms {
     public partial class ExamChangeForm : Form {
 
+        public Exam CurrentExam { get; set; }
+
         private const string questionDefault = "Điền câu hỏi";
         private Dictionary<RichTextBox, string> answerDefaults;
 
         private Exam sourceExam;
 
-        private Exam currentExam;
         private List<Class> availableClasses;
 
         private List<RichTextBox> rtbAnswers;
@@ -46,10 +47,10 @@ namespace BTL_PTUD.Forms {
 
             // Generate news
             if (examID == null) {
-                this.currentExam = new Exam(MainTeacherForm.MainForm.TeacherID);
+                this.CurrentExam = new Exam(MainTeacherForm.MainForm.TeacherID);
             }
-            else this.currentExam = SQLConnections.QueryExam(examID, true);
-            this.sourceExam = clone(this.currentExam);
+            else this.CurrentExam = SQLConnections.QueryExam(examID, true);
+            this.sourceExam = clone(this.CurrentExam);
 
             // Set
             this.GenerateExamValue();
@@ -60,49 +61,49 @@ namespace BTL_PTUD.Forms {
 
         public void GenerateExamValue() {
             // Set class
-            if (currentExam.ClassID != null) this.cbClass.SelectedItem = currentExam.ClassID + " " + fromID(currentExam.ClassID).Name;
+            if (CurrentExam.ClassID != null) this.cbClass.SelectedItem = CurrentExam.ClassID + " " + fromID(CurrentExam.ClassID).Name;
 
             // Acces time
-            if (currentExam.Time != 0) {
-                this.cbTAHour.SelectedItem = currentExam.Time / 3600;
-                this.cbTAMinute.SelectedItem = (currentExam.Time % 3600) / 60;
-                this.cbTASecond.SelectedItem = currentExam.Time % 60;
+            if (CurrentExam.Time != 0) {
+                this.cbTAHour.SelectedItem = CurrentExam.Time / 3600;
+                this.cbTAMinute.SelectedItem = (CurrentExam.Time % 3600) / 60;
+                this.cbTASecond.SelectedItem = CurrentExam.Time % 60;
             }
 
             // Limit
-            if (currentExam.Limit != 0) {
+            if (CurrentExam.Limit != 0) {
                 this.buttonLimit.Checked = true;
-                this.cbLimitTimes.SelectedItem = currentExam.Limit;
+                this.cbLimitTimes.SelectedItem = CurrentExam.Limit;
             }
             else this.buttonLimit.Checked = false;
 
             // Question amount
-            this.cbQuestionAmount.SelectedItem = this.currentExam.NumberQuestion;
+            this.cbQuestionAmount.SelectedItem = this.CurrentExam.NumberQuestion;
 
             // Start date
-            if (this.currentExam.StartDate != null) {
-                this.cbSTDay.SelectedItem = this.currentExam.StartDate.Day;
-                this.cbSTMonth.SelectedItem = this.currentExam.StartDate.Month;
-                this.cbSTYear.SelectedItem = this.currentExam.StartDate.Year;
+            if (this.CurrentExam.StartDate != null) {
+                this.cbSTDay.SelectedItem = this.CurrentExam.StartDate.Day;
+                this.cbSTMonth.SelectedItem = this.CurrentExam.StartDate.Month;
+                this.cbSTYear.SelectedItem = this.CurrentExam.StartDate.Year;
             }
 
             // End date
-            if (this.currentExam.EndDate != null) {
-                this.cbEDDay.SelectedItem = this.currentExam.EndDate.Day;
-                this.cbEDMonth.SelectedItem = this.currentExam.EndDate.Month;
-                this.cbEDYear.SelectedItem = this.currentExam.EndDate.Year;
+            if (this.CurrentExam.EndDate != null) {
+                this.cbEDDay.SelectedItem = this.CurrentExam.EndDate.Day;
+                this.cbEDMonth.SelectedItem = this.CurrentExam.EndDate.Month;
+                this.cbEDYear.SelectedItem = this.CurrentExam.EndDate.Year;
             }
 
             // Exam order
-            if (this.currentExam.ExamOrder != null) this.cbOrder.Text = this.currentExam.ExamOrder;
+            if (this.CurrentExam.ExamOrder != null) this.cbOrder.Text = this.CurrentExam.ExamOrder;
 
             // Current Question
-            this.currentQuestion = this.currentExam.Questions.Count == 0 ? null : this.currentExam.Questions[0];
+            this.currentQuestion = this.CurrentExam.Questions.Count == 0 ? null : this.CurrentExam.Questions[0];
 
             // Question
             this.dgvQuestions.Rows.Clear();
-            for (int i = 0; i < this.currentExam.Questions.Count; i++) {
-                this.addQuestionToDGV(i, this.currentExam.Questions[i]);
+            for (int i = 0; i < this.CurrentExam.Questions.Count; i++) {
+                this.addQuestionToDGV(i, this.CurrentExam.Questions[i]);
             }
         }
 
@@ -179,18 +180,18 @@ namespace BTL_PTUD.Forms {
                 var a = new Answer(null, null, "Câu trả lời " + i, i == 1 ? true : false);
                 answers.Add(a);
             }
-            var q = new Question(null, this.currentExam.ID, "Câu hỏi");
+            var q = new Question(null, this.CurrentExam.ID, "Câu hỏi");
             q.Answers = answers;
-            this.currentExam.Questions.Add(q);
+            this.CurrentExam.Questions.Add(q);
 
-            this.addQuestionToDGV(currentExam.Questions.Count - 1, q);
+            this.addQuestionToDGV(CurrentExam.Questions.Count - 1, q);
             this.dgvQuestions.CurrentCell = this.dgvQuestions[0, this.dgvQuestions.Rows.Count - 1];
             this.loadCurrentQA();
         }
 
         public void SaveCurrentQuestion() {
             var currentQ = this.currentQuestion;
-            int index = this.currentExam.Questions.IndexOf(currentQ);
+            int index = this.CurrentExam.Questions.IndexOf(currentQ);
 
             // Question and Answer contents
             currentQ.Content = rtbQuestion.Text;
@@ -286,9 +287,9 @@ namespace BTL_PTUD.Forms {
 
         private void loadCurrentQA() {
             int index = this.dgvQuestions.CurrentRow.Index;
-            if (index >= this.currentExam.Questions.Count) return;
+            if (index >= this.CurrentExam.Questions.Count) return;
             // Question
-            var q = this.currentExam.Questions[index];
+            var q = this.CurrentExam.Questions[index];
             this.currentQuestion = q;
             this.rtbQuestion.Text = q.Content;
 
@@ -382,29 +383,29 @@ namespace BTL_PTUD.Forms {
 
         public void setValues() {
             // Set class
-            this.currentExam.ClassID = availableClasses[cbClass.SelectedIndex].ID;
+            this.CurrentExam.ClassID = availableClasses[cbClass.SelectedIndex].ID;
 
             // Set access time
             int at = ((int)this.cbTAHour.SelectedItem) * 3600 + ((int)this.cbTAMinute.SelectedItem) * 60 + (int)this.cbTASecond.SelectedItem;
-            this.currentExam.Time = at;
+            this.CurrentExam.Time = at;
 
             // Limit
             if (this.buttonLimit.Checked) {
-                this.currentExam.Limit = (int)cbLimitTimes.SelectedItem;
+                this.CurrentExam.Limit = (int)cbLimitTimes.SelectedItem;
             }
-            else this.currentExam.Limit = 0;
+            else this.CurrentExam.Limit = 0;
 
             // Question amount
-            this.currentExam.NumberQuestion = (int)cbQuestionAmount.SelectedItem;
+            this.CurrentExam.NumberQuestion = (int)cbQuestionAmount.SelectedItem;
 
             // Order
-            this.currentExam.ExamOrder = cbOrder.SelectedItem.ToString();
+            this.CurrentExam.ExamOrder = cbOrder.SelectedItem.ToString();
 
             // Start day
-            this.currentExam.StartDate = new DateTime((int)cbSTYear.SelectedItem, (int)cbSTMonth.SelectedItem, (int)cbSTDay.SelectedItem);
+            this.CurrentExam.StartDate = new DateTime((int)cbSTYear.SelectedItem, (int)cbSTMonth.SelectedItem, (int)cbSTDay.SelectedItem);
 
             // End day
-            this.currentExam.EndDate = new DateTime((int)cbEDYear.SelectedItem, (int)cbEDMonth.SelectedItem, (int)cbEDDay.SelectedItem); 
+            this.CurrentExam.EndDate = new DateTime((int)cbEDYear.SelectedItem, (int)cbEDMonth.SelectedItem, (int)cbEDDay.SelectedItem); 
         }
 
         /*
@@ -424,6 +425,7 @@ namespace BTL_PTUD.Forms {
 
         private void OnFormClosing(object sender, FormClosingEventArgs e) {
             if (saved) return;
+            if (e.CloseReason != CloseReason.UserClosing) return;
             var result = MessageBox.Show("Bạn có chắc muốn thoát? Có thể mất dữ liệu nếu đang chỉnh sửa", "Thoát", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (result != DialogResult.Yes) e.Cancel = true;
         }
@@ -479,7 +481,7 @@ namespace BTL_PTUD.Forms {
         }
 
         private void OnQuestionsRowValidating(object sender, DataGridViewCellCancelEventArgs e) {
-            if (this.currentExam.Questions == null) return;
+            if (this.CurrentExam.Questions == null) return;
             if (loaded) CheckEdit();
         }
 
@@ -491,7 +493,7 @@ namespace BTL_PTUD.Forms {
                 this.dgvQuestions.Rows.RemoveAt(index);
 
                 // Clear in data
-                this.currentExam.Questions.RemoveAt(index);
+                this.CurrentExam.Questions.RemoveAt(index);
 
                 // Update new current
                 this.loadCurrentQA();
@@ -506,7 +508,7 @@ namespace BTL_PTUD.Forms {
             var result = MessageBox.Show("Những gì bạn đã chỉnh sửa sẽ mất hết. Bạn có chắc là muốn làm mới kỳ thi về ban đầu chứ?", "Làm mới kỳ thi", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (result == DialogResult.Yes) {
                 this.loaded = false;
-                this.currentExam = sourceExam;
+                this.CurrentExam = sourceExam;
                 this.GenerateDefautValues();
                 this.GenerateExamValue();
                 this.loaded = true;
@@ -524,11 +526,16 @@ namespace BTL_PTUD.Forms {
             this.CheckEdit();
 
             // Save
-            if (SQLConnections.SaveExam(this.currentExam)) {
+            if (SQLConnections.SaveExam(this.CurrentExam)) {
                 this.saved = true;
                 MessageBox.Show("Lưu kỳ thi thành công!", "Thành công", MessageBoxButtons.OK);
                 this.Close();
             }
+        }
+
+        private void OnButtonExamImportClick(object sender, EventArgs e) {
+            this.Hide();
+            new ExamQuestionsSelect(MainTeacherForm.MainForm.TeacherID, this).Show();
         }
     }
 }

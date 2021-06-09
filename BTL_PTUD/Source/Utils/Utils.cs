@@ -9,6 +9,10 @@ using System.Windows.Forms;
 namespace BTL_PTUD.Source.Utils {
     public static class Utils {
 
+        public static IList<T> Clone<T>(this IList<T> listToClone) where T : ICloneable {
+            return listToClone.Select(item => (T)item.Clone()).ToList();
+        }
+
         public static T Clone<T>(this T controlToClone)
         where T : Control {
             PropertyInfo[] controlProperties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);

@@ -21,6 +21,17 @@ namespace BTL_PTUD.Source.Objects {
             Answers = new List<Answer>();
         }
 
+        public object Clone() {
+            var q = new Question(ID, ExamID, Content);
+            q.ID = null;
+            foreach (var a in Answers) {
+                var cloneA = (Answer)a.Clone();
+                cloneA.ID = null;
+                cloneA.QuestionID = null;
+                q.Answers.Add(cloneA);
+            }
+            return q;
+        }
     }
 
 }

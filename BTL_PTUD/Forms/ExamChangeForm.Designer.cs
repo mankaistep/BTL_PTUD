@@ -59,7 +59,7 @@ namespace BTL_PTUD.Forms {
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnQSave = new System.Windows.Forms.Button();
             this.btnQRemove = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
+            this.btnExamImport = new System.Windows.Forms.Button();
             this.btnQuestionAdd = new System.Windows.Forms.Button();
             this.btnIsTrue5 = new System.Windows.Forms.RadioButton();
             this.btnIsTrue4 = new System.Windows.Forms.RadioButton();
@@ -447,7 +447,7 @@ namespace BTL_PTUD.Forms {
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.btnQSave);
             this.panel2.Controls.Add(this.btnQRemove);
-            this.panel2.Controls.Add(this.button8);
+            this.panel2.Controls.Add(this.btnExamImport);
             this.panel2.Controls.Add(this.btnQuestionAdd);
             this.panel2.Controls.Add(this.btnIsTrue5);
             this.panel2.Controls.Add(this.btnIsTrue4);
@@ -491,16 +491,17 @@ namespace BTL_PTUD.Forms {
             this.btnQRemove.UseVisualStyleBackColor = true;
             this.btnQRemove.Click += new System.EventHandler(this.OnButtonQRemove);
             // 
-            // button8
+            // btnExamImport
             // 
-            this.button8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button8.Location = new System.Drawing.Point(7, 386);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(334, 36);
-            this.button8.TabIndex = 4;
-            this.button8.TabStop = false;
-            this.button8.Text = "Lấy câu hỏi từ kỳ thi khác";
-            this.button8.UseVisualStyleBackColor = true;
+            this.btnExamImport.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExamImport.Location = new System.Drawing.Point(7, 386);
+            this.btnExamImport.Name = "btnExamImport";
+            this.btnExamImport.Size = new System.Drawing.Size(334, 36);
+            this.btnExamImport.TabIndex = 4;
+            this.btnExamImport.TabStop = false;
+            this.btnExamImport.Text = "Lấy câu hỏi từ kỳ thi khác";
+            this.btnExamImport.UseVisualStyleBackColor = true;
+            this.btnExamImport.Click += new System.EventHandler(this.OnButtonExamImportClick);
             // 
             // btnQuestionAdd
             // 
@@ -831,7 +832,7 @@ namespace BTL_PTUD.Forms {
         private System.Windows.Forms.ComboBox cbQuestionAmount;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button btnExamImport;
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.DataGridViewTextBoxColumn STT;
