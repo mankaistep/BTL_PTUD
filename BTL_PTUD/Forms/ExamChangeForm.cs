@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.OleDb;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -408,6 +409,57 @@ namespace BTL_PTUD.Forms {
             this.CurrentExam.EndDate = new DateTime((int)cbEDYear.SelectedItem, (int)cbEDMonth.SelectedItem, (int)cbEDDay.SelectedItem); 
         }
 
+        private void readExcel(string fileSource) {
+            try {
+                string con = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + fileSource + ";Extended Properties='Excel 8.0;HDR=Yes;ImportMixedTypes=Text'";
+                int count = 0;
+
+                int countProblem = 0;
+
+                using (OleDbConnection connection = new OleDbConnection(con)) {
+                    connection.Open();
+                    OleDbCommand command = new OleDbCommand("select * from [Sheet1$]", connection);
+                    using (OleDbDataReader dr = command.ExecuteReader()) {
+                        while (dr.Read()) {
+                            var qS = dr.IsDBNull(0) ? "Câu hỏi trống" : dr[0].ToString();
+                            var q = new Question(null, this.CurrentExam.ID, qS);
+
+                            int trueA = dr.IsDBNull(6) ? 1 : Convert.ToInt32(dr[6]);
+
+                            int countA = 0;
+                            for (int j = 1; j < 6; j++) {
+                                if (dr.IsDBNull(j)) continue;
+                                countA++;
+
+                                var aS = dr[j].ToString();
+                                var a = new Answer(null, null, aS, false);
+                                if (j == trueA) a.IsTrue = true;
+
+                                q.Answers.Add(a);
+                            }
+                            if (countA < 2) {
+                                countProblem++;
+                                continue;
+                            }
+
+                            this.CurrentExam.Questions.Add(q);
+                            count++;
+                        }
+                    }
+                }
+                if (countProblem > 0) {
+                    MessageBox.Show("Có " + countProblem + " câu hỏi có vấn đề, không thể thêm. Bạn nên kiểm tra lại!", "Báo cáo lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                MessageBox.Show("Thêm thành công " + count + " câu hỏi!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                GenerateExamValue();
+            }
+            catch (Exception e) {
+                Console.WriteLine(e.StackTrace);
+                MessageBox.Show("Xảy ra lỗi trong quá trình thêm. Có vẻ như file excel của bạn không đúng. Hãy sửa lại file theo mẫu (Tải đề mẫu)", "Xảy ra lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+        }
+
         /*
          * Event Handling
          */
@@ -536,6 +588,29 @@ namespace BTL_PTUD.Forms {
         private void OnButtonExamImportClick(object sender, EventArgs e) {
             this.Hide();
             new ExamQuestionsSelect(MainTeacherForm.MainForm.TeacherID, this).Show();
+        }
+
+        private void button9_Click(object sender, EventArgs e) {
+
+        }
+
+        private void OnButtonUploadClick(object sender, EventArgs e) {
+            OpenFileDialog openDialog = new OpenFileDialog();
+
+            openDialog.Title = "Chọn file Excel";
+            openDialog.Filter = "Excel Files|*.xls;*.xlsx;*.xlsm";
+            openDialog.CheckFileExists = true;
+            openDialog.CheckPathExists = true;
+
+            var result = openDialog.ShowDialog();
+            if (result == DialogResult.OK) {
+                var fileSource = openDialog.FileName;
+                readExcel(fileSource);
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e) {
+
         }
     }
 }
