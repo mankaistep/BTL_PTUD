@@ -1,6 +1,8 @@
 ﻿using BTL_PTUD.Source.Objects;
+using CrystalDecisions.CrystalReports.Engine;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -650,5 +652,123 @@ namespace BTL_PTUD.Source.Connection {
 
         }
 
+        public static List<Subject> QuerySubjects(string teacherID) {
+            List<Subject> list = new List<Subject>();
+
+            var cmd = new SqlCommand();
+            cmd.Connection = Connection;
+            cmd.CommandText = @"select distinct sj.Subject_id, sj.Subject_name, sj.Credits from [Subject] as sj
+                                join Classes as cls on cls.Subject_id = sj.Subject_id
+                                where cls.Teacher_id = @id";
+
+            var idParam = new SqlParameter("@id", System.Data.SqlDbType.VarChar, 50);
+            idParam.Value = teacherID;
+
+            cmd.Parameters.Add(idParam);
+            cmd.Prepare();
+
+            var reader = cmd.ExecuteReader();
+
+            using (cmd)
+            using (reader) {
+                while (reader.Read()) {
+                    string id = reader[0].ToString();
+                    string name = reader[1].ToString();
+                    int credits = Convert.ToInt32(reader[2]);
+                    list.Add(new Subject(id, name, credits));
+                }
+            }
+
+            return list;
+        }
+
+        public static void FillResultReportsBySubject(string teacherID, string subjectID, DateTime start, DateTime end, ReportClass report) {
+            List<ResultReport> list = new List<ResultReport>();
+
+            var cmd = new SqlCommand();
+            cmd.Connection = Connection;
+            cmd.CommandText = @"select distinct student.Student_id, student.Student_name, classes.Class_id, UPPER(classes.Subject_id) as Subject_id, results.Highest_score, results.Average_score, results.Times
+                                from Students as student
+                                join Student_Classes as student_classes on student_classes.Student_id = student.Student_id
+                                join Classes as classes on student_classes.Class_id = classes.Class_id
+                                join (
+	                                select results.Student_id, MAX(results.Score) as Highest_score, AVG(results.Score) as Average_score, MAX(results.times) as Times
+	                                from Student_Exam_Result as results
+	                                group by results.Student_id
+                                ) as results on results.Student_id = student.Student_id
+                                join Exams as exams on classes.Class_id = exams.Class_id
+                                where classes.Subject_id = @Subject_id AND classes.Teacher_id = @Teacher_id AND exams.Start_date >= @Start_date AND exams.Start_date <= @End_date";
+
+            var idParam = new SqlParameter("@Teacher_id", System.Data.SqlDbType.VarChar, 50);
+            var startDateParam = new SqlParameter("@Start_date", System.Data.SqlDbType.VarChar, 50);
+            var endDateParam = new SqlParameter("@End_date", System.Data.SqlDbType.VarChar, 50);
+            var subjectIDParam = new SqlParameter("@Subject_id", System.Data.SqlDbType.VarChar, 50);
+
+            idParam.Value = teacherID;
+            startDateParam.Value = start;
+            endDateParam.Value = end;
+            subjectIDParam.Value = subjectID;
+
+            cmd.Parameters.Add(idParam);
+            cmd.Parameters.Add(startDateParam);
+            cmd.Parameters.Add(endDateParam);
+            cmd.Parameters.Add(subjectIDParam);
+
+            cmd.Prepare();
+
+            using (cmd) {
+                var table = new DataTable();
+                var adapt = new SqlDataAdapter();
+                adapt.SelectCommand = cmd;
+                adapt.Fill(table);
+                report.SetDataSource(table);
+            }
+        }
+
+        public static void FillResultReportsByClass(string teacherID, string classID, DateTime start, DateTime end, ReportClass report) {
+            List<ResultReport> list = new List<ResultReport>();
+
+            var cmd = new SqlCommand();
+            cmd.Connection = Connection;
+            cmd.CommandText = @"select distinct student.Student_id, student.Student_name, classes.Class_id, UPPER(classes.Subject_id) as Subject_id, results.Highest_score, results.Average_score, results.Times
+                                from Students as student
+                                join Student_Classes as student_classes on student_classes.Student_id = student.Student_id
+                                join Classes as classes on student_classes.Class_id = classes.Class_id
+                                join (
+	                                select results.Student_id, MAX(results.Score) as Highest_score, AVG(results.Score) as Average_score, MAX(results.times) as Times
+	                                from Student_Exam_Result as results
+	                                group by results.Student_id
+                                ) as results on results.Student_id = student.Student_id
+                                join Exams as exams on classes.Class_id = exams.Class_id
+                                where classes.Class_id = @Class_id AND classes.Teacher_id = @Teacher_id AND exams.Start_date >= @Start_date AND exams.Start_date <= @End_date";
+
+            var idParam = new SqlParameter("@Teacher_id", System.Data.SqlDbType.VarChar, 50);
+            var startDateParam = new SqlParameter("@Start_date", System.Data.SqlDbType.VarChar, 50);
+            var endDateParam = new SqlParameter("@End_date", System.Data.SqlDbType.VarChar, 50);
+            var classIDParam = new SqlParameter("@Class_id", System.Data.SqlDbType.VarChar, 50);
+
+            idParam.Value = teacherID;
+            startDateParam.Value = start;
+            endDateParam.Value = end;
+            classIDParam.Value = classID;
+
+            cmd.Parameters.Add(idParam);
+            cmd.Parameters.Add(startDateParam);
+            cmd.Parameters.Add(endDateParam);
+            cmd.Parameters.Add(classIDParam);
+
+            cmd.Prepare();
+
+            using (cmd) {
+                var table = new DataTable();
+                var adapt = new SqlDataAdapter();
+                adapt.SelectCommand = cmd;
+                adapt.Fill(table);
+                report.SetDataSource(table);
+            }
+        }
+
     }
+
+
 }

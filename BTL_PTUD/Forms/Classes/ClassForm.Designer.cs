@@ -41,17 +41,18 @@ namespace BTL_PTUD.Forms {
             this.label14 = new System.Windows.Forms.Label();
             this.labelQuestionAmount = new System.Windows.Forms.Label();
             this.dgvResults = new System.Windows.Forms.DataGridView();
+            this.dgvChoices = new System.Windows.Forms.DataGridView();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonBack = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.Student_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Student_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Score = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Access_time = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Times = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvChoices = new System.Windows.Forms.DataGridView();
             this.Question_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.is_true = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Answer = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonBack = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResults)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvChoices)).BeginInit();
             this.panel1.SuspendLayout();
@@ -60,12 +61,12 @@ namespace BTL_PTUD.Forms {
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(10, 14);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(42, 16);
+            this.label1.Size = new System.Drawing.Size(83, 16);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Kỳ thi:";
+            this.label1.Text = "Chọn kỳ thi";
             // 
             // cbExams
             // 
@@ -91,10 +92,10 @@ namespace BTL_PTUD.Forms {
             // labelCreationDate
             // 
             this.labelCreationDate.AutoSize = true;
-            this.labelCreationDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelCreationDate.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelCreationDate.Location = new System.Drawing.Point(118, 43);
             this.labelCreationDate.Name = "labelCreationDate";
-            this.labelCreationDate.Size = new System.Drawing.Size(72, 16);
+            this.labelCreationDate.Size = new System.Drawing.Size(80, 17);
             this.labelCreationDate.TabIndex = 0;
             this.labelCreationDate.Text = "01/01/1970";
             // 
@@ -111,10 +112,10 @@ namespace BTL_PTUD.Forms {
             // labelTime
             // 
             this.labelTime.AutoSize = true;
-            this.labelTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTime.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTime.Location = new System.Drawing.Point(118, 73);
             this.labelTime.Name = "labelTime";
-            this.labelTime.Size = new System.Drawing.Size(29, 16);
+            this.labelTime.Size = new System.Drawing.Size(32, 17);
             this.labelTime.TabIndex = 0;
             this.labelTime.Text = "300";
             // 
@@ -131,10 +132,10 @@ namespace BTL_PTUD.Forms {
             // labelExamOrder
             // 
             this.labelExamOrder.AutoSize = true;
-            this.labelExamOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelExamOrder.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelExamOrder.Location = new System.Drawing.Point(118, 103);
             this.labelExamOrder.Name = "labelExamOrder";
-            this.labelExamOrder.Size = new System.Drawing.Size(53, 16);
+            this.labelExamOrder.Size = new System.Drawing.Size(58, 17);
             this.labelExamOrder.TabIndex = 0;
             this.labelExamOrder.Text = "Giữa kỳ";
             // 
@@ -142,7 +143,7 @@ namespace BTL_PTUD.Forms {
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(499, 14);
+            this.label8.Location = new System.Drawing.Point(616, 14);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(92, 16);
             this.label8.TabIndex = 0;
@@ -151,10 +152,10 @@ namespace BTL_PTUD.Forms {
             // labelStartDate
             // 
             this.labelStartDate.AutoSize = true;
-            this.labelStartDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelStartDate.Location = new System.Drawing.Point(607, 14);
+            this.labelStartDate.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelStartDate.Location = new System.Drawing.Point(724, 14);
             this.labelStartDate.Name = "labelStartDate";
-            this.labelStartDate.Size = new System.Drawing.Size(72, 16);
+            this.labelStartDate.Size = new System.Drawing.Size(80, 17);
             this.labelStartDate.TabIndex = 0;
             this.labelStartDate.Text = "01/01/1970";
             // 
@@ -162,7 +163,7 @@ namespace BTL_PTUD.Forms {
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(499, 43);
+            this.label10.Location = new System.Drawing.Point(616, 43);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(92, 16);
             this.label10.TabIndex = 0;
@@ -171,10 +172,10 @@ namespace BTL_PTUD.Forms {
             // labelEndDate
             // 
             this.labelEndDate.AutoSize = true;
-            this.labelEndDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelEndDate.Location = new System.Drawing.Point(607, 43);
+            this.labelEndDate.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelEndDate.Location = new System.Drawing.Point(724, 43);
             this.labelEndDate.Name = "labelEndDate";
-            this.labelEndDate.Size = new System.Drawing.Size(72, 16);
+            this.labelEndDate.Size = new System.Drawing.Size(80, 17);
             this.labelEndDate.TabIndex = 0;
             this.labelEndDate.Text = "01/01/1970";
             // 
@@ -182,7 +183,7 @@ namespace BTL_PTUD.Forms {
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(499, 73);
+            this.label12.Location = new System.Drawing.Point(616, 73);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(85, 16);
             this.label12.TabIndex = 0;
@@ -191,10 +192,10 @@ namespace BTL_PTUD.Forms {
             // labelLimitTimes
             // 
             this.labelLimitTimes.AutoSize = true;
-            this.labelLimitTimes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelLimitTimes.Location = new System.Drawing.Point(607, 73);
+            this.labelLimitTimes.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelLimitTimes.Location = new System.Drawing.Point(724, 73);
             this.labelLimitTimes.Name = "labelLimitTimes";
-            this.labelLimitTimes.Size = new System.Drawing.Size(25, 16);
+            this.labelLimitTimes.Size = new System.Drawing.Size(28, 17);
             this.labelLimitTimes.TabIndex = 0;
             this.labelLimitTimes.Text = "10 ";
             // 
@@ -202,7 +203,7 @@ namespace BTL_PTUD.Forms {
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(499, 103);
+            this.label14.Location = new System.Drawing.Point(616, 103);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(74, 16);
             this.label14.TabIndex = 0;
@@ -211,10 +212,10 @@ namespace BTL_PTUD.Forms {
             // labelQuestionAmount
             // 
             this.labelQuestionAmount.AutoSize = true;
-            this.labelQuestionAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelQuestionAmount.Location = new System.Drawing.Point(607, 103);
+            this.labelQuestionAmount.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelQuestionAmount.Location = new System.Drawing.Point(724, 103);
             this.labelQuestionAmount.Name = "labelQuestionAmount";
-            this.labelQuestionAmount.Size = new System.Drawing.Size(22, 16);
+            this.labelQuestionAmount.Size = new System.Drawing.Size(24, 17);
             this.labelQuestionAmount.TabIndex = 0;
             this.labelQuestionAmount.Text = "50";
             // 
@@ -235,41 +236,6 @@ namespace BTL_PTUD.Forms {
             this.dgvResults.TabIndex = 2;
             this.dgvResults.SelectionChanged += new System.EventHandler(this.OnSelectionChanged);
             // 
-            // Student_id
-            // 
-            this.Student_id.HeaderText = "Mã sinh viên";
-            this.Student_id.Name = "Student_id";
-            this.Student_id.ReadOnly = true;
-            this.Student_id.Width = 85;
-            // 
-            // Student_name
-            // 
-            this.Student_name.HeaderText = "Tên";
-            this.Student_name.Name = "Student_name";
-            this.Student_name.ReadOnly = true;
-            this.Student_name.Width = 120;
-            // 
-            // Score
-            // 
-            this.Score.HeaderText = "Điểm";
-            this.Score.Name = "Score";
-            this.Score.ReadOnly = true;
-            this.Score.Width = 50;
-            // 
-            // Access_time
-            // 
-            this.Access_time.HeaderText = "Thời gian";
-            this.Access_time.Name = "Access_time";
-            this.Access_time.ReadOnly = true;
-            this.Access_time.Width = 70;
-            // 
-            // Times
-            // 
-            this.Times.HeaderText = "Lần làm";
-            this.Times.Name = "Times";
-            this.Times.ReadOnly = true;
-            this.Times.Width = 55;
-            // 
             // dgvChoices
             // 
             this.dgvChoices.AllowUserToAddRows = false;
@@ -283,27 +249,6 @@ namespace BTL_PTUD.Forms {
             this.dgvChoices.Name = "dgvChoices";
             this.dgvChoices.Size = new System.Drawing.Size(607, 425);
             this.dgvChoices.TabIndex = 3;
-            // 
-            // Question_id
-            // 
-            this.Question_id.HeaderText = "Câu hỏi";
-            this.Question_id.Name = "Question_id";
-            this.Question_id.ReadOnly = true;
-            this.Question_id.Width = 300;
-            // 
-            // is_true
-            // 
-            this.is_true.HeaderText = "Kết quả";
-            this.is_true.Name = "is_true";
-            this.is_true.ReadOnly = true;
-            this.is_true.Width = 55;
-            // 
-            // Answer
-            // 
-            this.Answer.HeaderText = "Đã chọn";
-            this.Answer.Name = "Answer";
-            this.Answer.ReadOnly = true;
-            this.Answer.Width = 208;
             // 
             // panel1
             // 
@@ -324,26 +269,104 @@ namespace BTL_PTUD.Forms {
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(167, 17);
+            this.panel1.Location = new System.Drawing.Point(13, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(694, 132);
+            this.panel1.Size = new System.Drawing.Size(814, 132);
             this.panel1.TabIndex = 4;
             // 
             // buttonBack
             // 
-            this.buttonBack.Location = new System.Drawing.Point(12, 12);
+            this.buttonBack.Location = new System.Drawing.Point(850, 88);
             this.buttonBack.Name = "buttonBack";
-            this.buttonBack.Size = new System.Drawing.Size(94, 36);
+            this.buttonBack.Size = new System.Drawing.Size(199, 36);
             this.buttonBack.TabIndex = 5;
             this.buttonBack.Text = "Quay lại";
             this.buttonBack.UseVisualStyleBackColor = true;
             this.buttonBack.Click += new System.EventHandler(this.OnButtonBackClick);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(850, 46);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(199, 36);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "Làm mới";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // Student_id
+            // 
+            this.Student_id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Student_id.FillWeight = 85.94972F;
+            this.Student_id.HeaderText = "MSV";
+            this.Student_id.Name = "Student_id";
+            this.Student_id.ReadOnly = true;
+            this.Student_id.Width = 55;
+            // 
+            // Student_name
+            // 
+            this.Student_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Student_name.FillWeight = 209.178F;
+            this.Student_name.HeaderText = "Tên";
+            this.Student_name.Name = "Student_name";
+            this.Student_name.ReadOnly = true;
+            // 
+            // Score
+            // 
+            this.Score.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Score.FillWeight = 38.98434F;
+            this.Score.HeaderText = "Điểm";
+            this.Score.Name = "Score";
+            this.Score.ReadOnly = true;
+            this.Score.Width = 56;
+            // 
+            // Access_time
+            // 
+            this.Access_time.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Access_time.FillWeight = 126.9036F;
+            this.Access_time.HeaderText = "Thời gian";
+            this.Access_time.Name = "Access_time";
+            this.Access_time.ReadOnly = true;
+            this.Access_time.Width = 76;
+            // 
+            // Times
+            // 
+            this.Times.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Times.FillWeight = 38.98434F;
+            this.Times.HeaderText = "Lần làm";
+            this.Times.Name = "Times";
+            this.Times.ReadOnly = true;
+            this.Times.Width = 69;
+            // 
+            // Question_id
+            // 
+            this.Question_id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Question_id.FillWeight = 127.1574F;
+            this.Question_id.HeaderText = "Câu hỏi";
+            this.Question_id.Name = "Question_id";
+            this.Question_id.ReadOnly = true;
+            // 
+            // is_true
+            // 
+            this.is_true.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.is_true.FillWeight = 45.68528F;
+            this.is_true.HeaderText = "Kết quả";
+            this.is_true.Name = "is_true";
+            this.is_true.ReadOnly = true;
+            // 
+            // Answer
+            // 
+            this.Answer.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Answer.FillWeight = 127.1574F;
+            this.Answer.HeaderText = "Đã chọn";
+            this.Answer.Name = "Answer";
+            this.Answer.ReadOnly = true;
             // 
             // ClassForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1061, 595);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.buttonBack);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dgvChoices);
@@ -381,14 +404,15 @@ namespace BTL_PTUD.Forms {
         private System.Windows.Forms.DataGridView dgvResults;
         private System.Windows.Forms.DataGridView dgvChoices;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Question_id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn is_true;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Answer;
         private System.Windows.Forms.Button buttonBack;
+        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Student_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn Student_name;
         private System.Windows.Forms.DataGridViewTextBoxColumn Score;
         private System.Windows.Forms.DataGridViewTextBoxColumn Access_time;
         private System.Windows.Forms.DataGridViewTextBoxColumn Times;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Question_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn is_true;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Answer;
     }
 }

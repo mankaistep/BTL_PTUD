@@ -32,6 +32,7 @@ namespace BTL_PTUD.Forms {
 
         private List<RichTextBox> allQA;
 
+        private bool canEdit;
         private bool loaded;
 
         private Question currentQuestion;
@@ -53,8 +54,17 @@ namespace BTL_PTUD.Forms {
             // Generate news
             if (examID == null) {
                 this.CurrentExam = new Exam(MainTeacherForm.MainForm.TeacherID);
+                this.canEdit = true;
             }
-            else this.CurrentExam = SQLConnections.QueryExam(examID, true);
+            else {
+                this.CurrentExam = SQLConnections.QueryExam(examID, true);
+                this.canEdit = this.CurrentExam.CanEdit();
+                if (!this.canEdit) {
+                    this.saved = true;
+                    MessageBox.Show("Vì kỳ thi đã bắt đầu, không thể chỉnh sửa kỳ thi. Chỉ có thể xem và tải đề về", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MakeUneditable();
+                }
+            }
             this.sourceExam = clone(this.CurrentExam);
 
             // Set
@@ -263,6 +273,41 @@ namespace BTL_PTUD.Forms {
             }
 
             return true;
+        }
+
+        public void MakeUneditable() {
+            List<Control> toDisable = new List<Control>();
+            toDisable.Add(this.cbClass);
+            toDisable.Add(this.cbEDDay);
+            toDisable.Add(this.cbEDMonth);
+            toDisable.Add(this.cbEDYear);
+            toDisable.Add(this.cbLimitTimes);
+            toDisable.Add(this.cbOrder);
+            toDisable.Add(this.cbQuestionAmount);
+            toDisable.Add(this.cbSTDay);
+            toDisable.Add(this.cbSTMonth);
+            toDisable.Add(this.cbSTYear);
+            toDisable.Add(this.cbTAHour);
+            toDisable.Add(this.cbTAMinute);
+            toDisable.Add(this.cbTASecond);
+            toDisable.Add(this.buttonLimit);
+            toDisable.Add(this.button7);
+            toDisable.Add(this.btnExamImport);
+            toDisable.Add(this.btnIsTrue1);
+            toDisable.Add(this.btnIsTrue2);
+            toDisable.Add(this.btnIsTrue3);
+            toDisable.Add(this.btnIsTrue4);
+            toDisable.Add(this.btnIsTrue5);
+            toDisable.Add(this.btnQRemove);
+            toDisable.Add(this.btnQSave);
+            toDisable.Add(this.btnQuestionAdd);
+            toDisable.Add(this.btnRollback);
+            toDisable.Add(this.btnSave);
+
+            foreach (var c in toDisable) c.Enabled = false;
+
+            this.rtbQuestion.ReadOnly = true;
+            foreach (var rtb in rtbAnswers) rtb.ReadOnly = true;
         }
 
         /*
@@ -657,7 +702,7 @@ namespace BTL_PTUD.Forms {
 
         private void OnButtonExamImportClick(object sender, EventArgs e) {
             this.Hide();
-            new ExamQuestionsSelect(MainTeacherForm.MainForm.TeacherID, this).Show();
+            new ExamQuestionsSelectForm(MainTeacherForm.MainForm.TeacherID, this).Show();
         }
 
         private void OnButtonTemplateDownloadClick(object sender, EventArgs e) {

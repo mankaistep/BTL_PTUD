@@ -1,6 +1,6 @@
 ﻿
 namespace BTL_PTUD.Forms {
-    partial class ExamQuestionsSelect {
+    partial class ExamQuestionsSelectForm {
         /// <summary>
         /// Required designer variable.
         /// </summary>

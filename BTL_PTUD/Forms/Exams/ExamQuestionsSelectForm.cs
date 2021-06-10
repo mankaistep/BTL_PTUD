@@ -12,18 +12,18 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BTL_PTUD.Forms {
-    public partial class ExamQuestionsSelect : Form {
+    public partial class ExamQuestionsSelectForm : Form {
 
         private string teacherID;
         private ExamChangeForm examForm;
 
         private List<Exam> exams;
 
-        public ExamQuestionsSelect() {
+        public ExamQuestionsSelectForm() {
             InitializeComponent();
         }
 
-        public ExamQuestionsSelect(string teacherID, ExamChangeForm examForm) {
+        public ExamQuestionsSelectForm(string teacherID, ExamChangeForm examForm) {
             InitializeComponent();
             this.teacherID = teacherID;
             this.examForm = examForm;

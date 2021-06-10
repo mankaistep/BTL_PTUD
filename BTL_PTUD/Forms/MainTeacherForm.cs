@@ -20,10 +20,19 @@ namespace BTL_PTUD.Forms {
         public string TeacherID;
         public Teacher Teacher;
 
+        public List<ButtonBase> buttons;
+
         public MainTeacherForm(string id, string sqlconnstring) {
             InitializeComponent();
             SQLConnections.Init(sqlconnstring);
             MainForm = this;
+
+            // Group buttons
+            this.buttons = new List<ButtonBase>();
+            this.buttons.Add(btnExam);
+            this.buttons.Add(btnClass);
+            this.buttons.Add(btnReport);
+            this.setBold(btnExam);
 
             this.TeacherID = id;
             this.Teacher = SQLConnections.QueryTeacher(id);
@@ -51,16 +60,37 @@ namespace BTL_PTUD.Forms {
             }
         }
 
+        private void resetFontButtons() {
+            foreach (var btn in buttons) {
+                btn.Font = new Font(btn.Font, FontStyle.Regular);
+            }
+        }
+
+        private void setBold(ButtonBase btn) {
+            btn.Font = new Font(btn.Font, FontStyle.Bold);
+        }
+
         private void OnClassButtonClick(object sender, EventArgs e) {
             this.classUC.BringToFront();
+            this.resetFontButtons();
+            this.setBold((ButtonBase) sender);
         }
 
         private void OnExaminationButtonClick(object sender, EventArgs e) {
             this.examUC.BringToFront();
+            this.resetFontButtons();
+            this.setBold((ButtonBase)sender);
+        }
+
+        private void OnReportButtonClick(object sender, EventArgs e) {
+            this.reportUC.BringToFront();
+            this.resetFontButtons();
+            this.setBold((ButtonBase)sender);
         }
 
         private void OnFormClose(object sender, FormClosedEventArgs e) {
             SQLConnections.Connection.Close();
         }
+
     }
 }

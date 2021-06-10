@@ -72,6 +72,7 @@ namespace BTL_PTUD.Forms {
             this.labelQuestionAmount.Text = currentExam.NumberQuestion + " câu";
 
             // Results
+            this.dgvChoices.Rows.Clear();
             this.dgvResults.Rows.Clear();
             foreach (var result in this.currentResults) {
                 string time = result.AccessTime / 60 + " p" + (result.AccessTime % 60) + " s";

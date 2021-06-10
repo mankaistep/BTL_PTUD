@@ -44,5 +44,10 @@ namespace BTL_PTUD.Source.Objects {
             NumberQuestion = numberQuestion;
             Questions = new List<Question>();
         }
+
+        public bool CanEdit() {
+            return DateTime.Compare(StartDate, DateTime.Now) > 0;
+        }
+
     }
 }

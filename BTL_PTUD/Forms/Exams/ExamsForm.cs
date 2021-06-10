@@ -32,7 +32,7 @@ namespace BTL_PTUD.Forms {
 
         public void GenerateValues() {
             // Query Exams
-            this.availableExams = SQLConnections.QueryExams(teacherID, true, true);
+            this.availableExams = SQLConnections.QueryExams(teacherID, true, false);
 
             this.dgvExams.Rows.Clear();
             foreach (var exam in this.availableExams) {
